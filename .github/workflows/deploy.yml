@@ -39,7 +39,16 @@ jobs:
         shell: bash
         run: |
           test ! -e public/static/private-materials
+          test ! -e public/98-Local-Study-Cache
           test ! -e public/98-local-study-cache
+          test -f public/06-hands-on-llm/source/license.txt
+          for dataset in \
+            public/06-hands-on-llm/source/03-peft-framework/experiments/align_lab/data/pref_dpo_train.json \
+            public/06-hands-on-llm/source/03-peft-framework/experiments/align_lab/data/pref_dpo_eval.json \
+            public/06-hands-on-llm/source/03-peft-framework/experiments/peft_lab/data/zh_instruct_train.json \
+            public/06-hands-on-llm/source/03-peft-framework/experiments/peft_lab/data/zh_instruct_eval.json; do
+            test ! -e "$dataset"
+          done
           if grep -R -E 'dihengye\.cn/slide-images|private-study-cache' public --include='*.html' --include='*.json'; then
             echo "Private study material leaked into the public output."
             exit 1

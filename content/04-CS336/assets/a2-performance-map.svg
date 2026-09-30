@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 680" role="img" aria-labelledby="title desc">
+  <title id="title">A2 的性能诊断路线</title>
+  <desc id="desc">先固定工作负载并同步计时，再通过时间线和显存快照分类瓶颈；对应尝试数值格式、算子 IO、激活内存或跨卡通信优化，最后复测端到端表现与数值质量。</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6684a8"/></marker></defs>
+  <rect width="820" height="680" rx="28" fill="#f5f9ff"/>
+  <text x="38" y="44" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5" fill="#6684a8">MEASURE → DIAGNOSE → VERIFY</text>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+    <rect x="150" y="68" width="520" height="100" rx="20" fill="#fff" stroke="#b8cce5" stroke-width="2"/>
+    <text x="410" y="109" text-anchor="middle" font-size="22" font-weight="700" fill="#193556">固定 workload，建立基线</text>
+    <text x="410" y="143" text-anchor="middle" font-size="16" fill="#536a84">同步计时 · 预热 · 重复测量 · 记录 shape / dtype</text>
+    <path d="M410 168V198" stroke="#6684a8" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="150" y="207" width="520" height="92" rx="20" fill="#e7f0ff" stroke="#aac4e5" stroke-width="2"/>
+    <text x="410" y="247" text-anchor="middle" font-size="21" font-weight="700" fill="#193556">看时间线和显存峰值</text>
+    <text x="410" y="279" text-anchor="middle" font-size="16" fill="#536a84">区分计算、搬运、激活驻留、同步等待</text>
+    <path d="M410 299V326M410 326H130V347M410 326V347M410 326H690V347" fill="none" stroke="#6684a8" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <g>
+      <rect x="35" y="355" width="235" height="130" rx="18" fill="#fff" stroke="#c4d6eb" stroke-width="2"/>
+      <text x="152" y="393" text-anchor="middle" font-size="19" font-weight="700" fill="#244b79">数值 / 算力</text>
+      <text x="152" y="424" text-anchor="middle" font-size="15" fill="#536a84">BF16、融合算子</text>
+      <text x="152" y="451" text-anchor="middle" font-size="15" fill="#536a84">检查范围与梯度稳定性</text>
+      <rect x="293" y="355" width="235" height="130" rx="18" fill="#fff" stroke="#c4d6eb" stroke-width="2"/>
+      <text x="410" y="393" text-anchor="middle" font-size="19" font-weight="700" fill="#244b79">注意力 IO</text>
+      <text x="410" y="424" text-anchor="middle" font-size="15" fill="#536a84">分块 FlashAttention</text>
+      <text x="410" y="451" text-anchor="middle" font-size="15" fill="#536a84">不物化完整 $T \times T$ 矩阵</text>
+      <rect x="550" y="355" width="235" height="130" rx="18" fill="#fff" stroke="#c4d6eb" stroke-width="2"/>
+      <text x="667" y="393" text-anchor="middle" font-size="19" font-weight="700" fill="#244b79">显存 / 并行</text>
+      <text x="667" y="424" text-anchor="middle" font-size="15" fill="#536a84">重计算、DDP / FSDP</text>
+      <text x="667" y="451" text-anchor="middle" font-size="15" fill="#536a84">权衡重算、分片与通信</text>
+    </g>
+    <path d="M152 485V515H410M410 485V515M668 485V515H410V538" fill="none" stroke="#6684a8" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <rect x="150" y="546" width="520" height="92" rx="20" fill="#fff" stroke="#9cb8dc" stroke-width="2"/>
+    <text x="410" y="586" text-anchor="middle" font-size="21" font-weight="700" fill="#193556">同条件复测并做质量检查</text>
+    <text x="410" y="616" text-anchor="middle" font-size="16" fill="#536a84">端到端 token/s · 峰值显存 · loss / 验证表现</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 390" role="img" aria-labelledby="title desc">
+  <title id="title">三个 token 的因果注意力可见矩阵</title>
+  <desc id="desc">矩阵行是 query 位置，列是 key 位置。每行仅能看到当前和之前的位置；上三角被遮住。</desc>
+  <rect width="520" height="390" rx="26" fill="#f5f9ff"/>
+  <text x="34" y="42" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="1.4" fill="#6382a9">CAUSAL VISIBILITY</text>
+  <text x="264" y="83" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#294b74">Key：可读取的位置 →</text>
+  <text x="72" y="160" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" font-weight="700" fill="#294b74" transform="rotate(-90 72 160)">Query：预测位置</text>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" fill="#536a84" text-anchor="middle">
+    <text x="176" y="116">位置 1</text><text x="256" y="116">位置 2</text><text x="336" y="116">位置 3</text>
+    <text x="126" y="164">位置 1</text><text x="126" y="244">位置 2</text><text x="126" y="324">位置 3</text>
+  </g>
+  <g stroke="#d6e2f1" stroke-width="2">
+    <rect x="150" y="130" width="72" height="72" rx="12" fill="#2764ad"/><rect x="230" y="130" width="72" height="72" rx="12" fill="#e5edf7"/><rect x="310" y="130" width="72" height="72" rx="12" fill="#e5edf7"/>
+    <rect x="150" y="210" width="72" height="72" rx="12" fill="#2764ad"/><rect x="230" y="210" width="72" height="72" rx="12" fill="#2764ad"/><rect x="310" y="210" width="72" height="72" rx="12" fill="#e5edf7"/>
+    <rect x="150" y="290" width="72" height="72" rx="12" fill="#2764ad"/><rect x="230" y="290" width="72" height="72" rx="12" fill="#2764ad"/><rect x="310" y="290" width="72" height="72" rx="12" fill="#2764ad"/>
+  </g>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" text-anchor="middle">
+    <text x="186" y="176" fill="#fff">看</text><text x="266" y="176" fill="#8a9cb2">遮</text><text x="346" y="176" fill="#8a9cb2">遮</text>
+    <text x="186" y="256" fill="#fff">看</text><text x="266" y="256" fill="#fff">看</text><text x="346" y="256" fill="#8a9cb2">遮</text>
+    <text x="186" y="336" fill="#fff">看</text><text x="266" y="336" fill="#fff">看</text><text x="346" y="336" fill="#fff">看</text>
+  </g>
+</svg>

@@ -1,20 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
-  <title id="title">Decoder-only Transformer block</title>
-  <desc id="desc">输入经过 RMSNorm、causal self-attention 和残差，然后经过 RMSNorm、SwiGLU 前馈网络和残差输出。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="title desc">
+  <title id="title">Pre-LN decoder Transformer block 的残差数据流</title>
+  <desc id="desc">主干自下而上经过 Norm、因果多头自注意力、加上输入 X 得到 x'，再经过 Norm 和逐位置 FFN，最后加上 x' 得到 y。两处相加的张量形状都是 B、T、D。</desc>
   <defs>
-    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9" fill="#315f91"/></marker>
-    <style>text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}.box{fill:#fff;stroke:#7294b5;stroke-width:2}.norm{fill:#eff4f9;stroke:#9cb2c8;stroke-width:2}.label{font-size:19px;font-weight:600}.small{font-size:15px;fill:#53677d}.res{fill:none;stroke:#668db7;stroke-width:2.5}</style>
+    <marker id="arrow-main" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10" fill="#315f91"/>
+    </marker>
+    <marker id="arrow-skip" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10" fill="#7597ba"/>
+    </marker>
+    <style>
+      text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}
+      .title{font-size:23px;font-weight:700}
+      .label{font-size:19px;font-weight:600}
+      .small{font-size:15px;fill:#53677d}
+      .box{fill:#fff;stroke:#7294b5;stroke-width:2}
+      .norm{fill:#eff4f9;stroke:#9cb2c8;stroke-width:2}
+      .main{fill:none;stroke:#315f91;stroke-width:2.8;marker-end:url(#arrow-main)}
+      .skip{fill:none;stroke:#7597ba;stroke-width:2.6;stroke-dasharray:7 5;marker-end:url(#arrow-skip)}
+    </style>
   </defs>
-  <rect width="900" height="500" rx="22" fill="#f7faff"/>
-  <text x="450" y="40" text-anchor="middle" class="label">Pre-norm decoder block：注意力负责 token 间混合，FFN 逐位置变换</text>
-  <rect class="box" x="350" y="430" width="200" height="48" rx="10"/><text x="450" y="461" class="label" text-anchor="middle">输入 X [B,T,D]</text>
-  <rect class="norm" x="370" y="347" width="160" height="48" rx="9"/><text x="450" y="377" class="label" text-anchor="middle">RMSNorm</text>
-  <rect class="box" x="325" y="253" width="250" height="60" rx="10"/><text x="450" y="280" class="label" text-anchor="middle">因果多头自注意力</text><text x="450" y="301" class="small" text-anchor="middle">跨位置混合上下文</text>
-  <rect class="norm" x="370" y="166" width="160" height="48" rx="9"/><text x="450" y="196" class="label" text-anchor="middle">RMSNorm</text>
-  <rect class="box" x="325" y="79" width="250" height="60" rx="10"/><text x="450" y="106" class="label" text-anchor="middle">SwiGLU FFN</text><text x="450" y="127" class="small" text-anchor="middle">逐位置变换通道</text>
-  <path d="M450 430v-29M450 347v-26M450 253v-31M450 166v-20M450 79V57" stroke="#315f91" stroke-width="2.6" marker-end="url(#arrow)"/>
-  <path d="M350 454H235V283H320M550 454H665V283H580M350 371H205V109H320M550 371H695V109H580" class="res"/>
-  <circle cx="325" cy="283" r="15" fill="#dceaf7" stroke="#315f91" stroke-width="2"/><text x="325" y="289" text-anchor="middle" font-size="19" font-weight="700" fill="#315f91">+</text>
-  <circle cx="575" cy="283" r="15" fill="#dceaf7" stroke="#315f91" stroke-width="2"/><text x="575" y="289" text-anchor="middle" font-size="19" font-weight="700" fill="#315f91">+</text>
-  <text x="130" y="347" class="small">残差支路</text><text x="755" y="347" class="small">残差支路</text>
+  <rect width="1000" height="640" rx="22" fill="#f7faff"/>
+  <text x="500" y="34" text-anchor="middle" class="title">Pre-LN decoder block：每个子层都有一条输入残差支路</text>
+
+  <path class="skip" d="M590 588H820V350H520"/>
+  <path class="skip" d="M500 332H180V135H482"/>
+
+  <rect class="box" x="410" y="563" width="180" height="50" rx="10"/>
+  <text x="500" y="594" text-anchor="middle" class="label">输入 X [B,T,D]</text>
+
+  <rect class="norm" x="410" y="485" width="180" height="48" rx="9"/>
+  <text x="500" y="515" text-anchor="middle" class="label">Norm(x)</text>
+
+  <rect class="box" x="370" y="395" width="260" height="58" rx="10"/>
+  <text x="500" y="420" text-anchor="middle" class="label">因果多头自注意力</text>
+  <text x="500" y="442" text-anchor="middle" class="small">含输出投影，结果形状 [B,T,D]</text>
+
+  <circle cx="500" cy="350" r="18" fill="#dceaf7" stroke="#315f91" stroke-width="2.4"/>
+  <text x="500" y="357" text-anchor="middle" font-size="22" font-weight="700" fill="#315f91">+</text>
+  <text x="526" y="330" class="small">得到 x′</text>
+
+  <rect class="norm" x="410" y="270" width="180" height="48" rx="9"/>
+  <text x="500" y="300" text-anchor="middle" class="label">Norm(x′)</text>
+
+  <rect class="box" x="370" y="170" width="260" height="60" rx="10"/>
+  <text x="500" y="195" text-anchor="middle" class="label">逐位置 FFN</text>
+  <text x="500" y="218" text-anchor="middle" class="small">输出形状仍为 [B,T,D]</text>
+
+  <circle cx="500" cy="135" r="18" fill="#dceaf7" stroke="#315f91" stroke-width="2.4"/>
+  <text x="500" y="142" text-anchor="middle" font-size="22" font-weight="700" fill="#315f91">+</text>
+
+  <rect class="box" x="410" y="54" width="180" height="50" rx="10"/>
+  <text x="500" y="85" text-anchor="middle" class="label">输出 y [B,T,D]</text>
+
+  <path class="main" d="M500 563V540"/>
+  <path class="main" d="M500 485V460"/>
+  <path class="main" d="M500 395V374"/>
+  <path class="main" d="M500 332V324"/>
+  <path class="main" d="M500 270V236"/>
+  <path class="main" d="M500 170V159"/>
+  <path class="main" d="M500 117V110"/>
+
+  <text x="833" y="485" class="small">X 残差支路</text>
+  <text x="833" y="506" class="small">绕过注意力子层</text>
+  <text x="24" y="229" class="small">x′ 残差支路</text>
+  <text x="24" y="250" class="small">绕过 FFN 子层</text>
 </svg>

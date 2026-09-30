@@ -1,0 +1,166 @@
+# 微调 / 分布式 / 量化选型：方法原理与怎么选
+
+> **所属模块**：第 ③ 模块「工业框架」，配合 [`../experiments`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/experiments/readme) 的空白记录表（供你自测填数）与 [`../configs`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/configs/readme) 模板阅读
+> **前置知识**：知道模型训练显存由"参数 + 梯度 + 优化器状态 + 激活"四部分构成；LoRA 基本思想（② 已手写验证）
+> **文档定位**：这三类选型决定"**用什么方式训、怎么把训练铺开、怎么把模型部署省下来**"。本篇只讲原理与定性取舍，不替你填数字——具体 MB/ms 请按 `experiments/` 的模板在自己的卡上实测，因为它们强依赖模型、batch、序列长度。
+
+---
+
+## 第一部分 · 参数高效微调（PEFT）怎么选
+
+### 1.1 先建立显存账本
+
+全参数训练一份模型，显存大致要装四样东西（以 AdamW、混合精度为例）：
+
+```
+总显存 ≈ 模型参数 + 梯度 + 优化器状态(Adam 的两份动量, 最大头) + 激活值
+        全参时优化器状态可达参数量的 8~12 倍字节，是 OOM 的主要原因
+```
+
+PEFT 的核心思路：**冻结基座，只训练并更新极小一部分参数**，从而砍掉梯度和优化器状态的绝大部分。
+
+### 1.2 八种方法横向对比
+
+| 方法 | 可训练部分 | 参数量级 | 推理是否要挂额外结构 | 特点 |
+| --- | --- | --- | --- | --- |
+| Full 全参 | 全部权重 | 100% | 否 | 效果上限最高，显存最大 |
+| Freeze 冻结 | 只解冻末层/部分层 | 中 | 否 | 最简单，灵活度低 |
+| **LoRA** | 旁路低秩矩阵 A/B | 0.1%~1% | 可合并回权重（零额外延迟） | 性价比之王 |
+| **QLoRA** | 4bit 量化基座 + LoRA | 同 LoRA | 合并前需反量化 | 小卡救星，精度损失小 |
+| Adapter | 层间插入小瓶颈层 | 小 | **要**（串行，增延迟） | 较早的方案 |
+| Prefix-tuning | 每层注意力前拼可训前缀向量 | 小 | **要**（上下文变长） | 改的是 Key/Value 前缀 |
+| P-Tuning v2 | Prefix 的深层版 | 小 | **要** | 对小模型更友好 |
+| DoRA | LoRA + 权重幅度/方向分解 | 略多于 LoRA | 可合并 | 通常比 LoRA 更贴近全参，训练略慢 |
+
+### 1.3 LoRA 关键超参（框架里最常调的）
+
+- `r`（秩）：低秩矩阵的瓶颈维度，越大容量越强、参数越多，常用 8/16/32/64；
+- `lora_alpha`：缩放系数，等效学习率缩放，经验上常取 `alpha ≈ 2r`；
+- `lora_dropout`：防过拟合，小数据可设 0.05；
+- `lora_target`：注入哪些线性层。只挂 `q,v` 最省；挂全 `q,k,v,o,gate,up,down` 效果更好、参数更多。
+- ② 的手写实测可作直觉锚点：LoRA 只训 0.61% 参数，适配器权重从全量 132MB 降到 0.78MB，训练显存 7.36→4.60GB。
+
+### 1.4 怎么选（决策）
+
+```
+显存够、追求最终效果、数据多 ─────────────► Full
+显存有限（消费级卡）、绝大多数场景 ─────────► LoRA（先全 target 试，再按效果减）
+显存极小（如 6~8GB 跑 7B）─────────────────► QLoRA
+LoRA 效果差一口气、能多花一点算力 ─────────► DoRA
+需要多个可热切换的小适配器/多任务 ─────────► LoRA（天然按 adapter 文件切换）
+```
+
+> LoRA/QLoRA/DoRA 训练完可以把增量**合并（merge）回基座**，推理时无额外延迟；而 Adapter/Prefix 类推理时必须带着额外结构，会增加延迟或占用上下文，这是常被忽略的差别。
+
+### 1.5 实测对照：Full vs LoRA vs QLoRA（本仓库已复现）
+
+上面是定性结论，下面用一组控制变量实验来验证。固定 Qwen2.5-0.5B、3000/300 条中文指令、全局 batch=16、cutoff 512、bf16、1 epoch、seed 42，只改变微调方式，在单卡 RTX 3080 Ti 12GB 上实测：
+
+| 指标 | Full | LoRA | QLoRA |
+| --- | ---: | ---: | ---: |
+| 可训参数（占比） | 494.0M（100%） | 4.40M（0.88%） | 4.40M（0.88%） |
+| 训练显存峰值 | 11081 MB | 3699 MB | 3199 MB |
+| 纯训练时长 | 4.53 min | 7.61 min | 9.94 min |
+| train / eval loss | 1.806 / 1.826 | 1.840 / 2.007 | 1.916 / 2.083 |
+| 部署权重大小 | 1885 MB | 16.8 MB | 16.8 MB |
+
+可以读出三点：
+
+1. **显存与存储数量级下降。** LoRA 只训 0.88% 参数、显存降到约三分之一，QLoRA 靠 4bit 基座进一步压到 3.2G；adapter 仅 16.8MB，比全参权重小约 112 倍，且能按任务热切换。
+2. **效果代价很小。** 在只训 1 epoch 的小数据上 eval_loss 差距有限，Full 优于 LoRA、LoRA 优于 QLoRA 的排序，正好对应“可训练容量递减、量化引入噪声”的预期。
+3. **LoRA 并不一定更快。** 本实验为保证公平把 micro-batch 都压到 2（Full 在 micro-batch=4 时第一步反向就 OOM）；LoRA 的冻结层在梯度检查点下反向仍要重算前向，QLoRA 还要额外做 4bit 反量化，于是 Full 反而最快。LoRA/QLoRA 的吞吐优势，要在“用省下的显存把 micro-batch 开大、或换更大模型”时才体现——这是显存与速度之间的真实取舍，不能只背“LoRA 又省又快”。
+
+两个高频坑：① 全参训练时**优化器状态**才是显存大头，调小 micro-batch、用梯度累积保持全局 batch，比硬扛更有效；② 大词表模型（Qwen 词表约 15.2 万）评测时 logits 张量大小约为 batch × seq × vocab，常常训练不 OOM、却在 epoch 末评测时 OOM，把评测 micro-batch 单独设为 1 即可。
+
+> 完整配置、原始日志、逐秒显存采样与一键复现脚本见 [`../experiments/peft_lab/`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/experiments/peft_lab/readme)，汇总数值见 [`../experiments/peft_compare.csv`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/experiments/peft_compare.csv)。
+---
+
+## 第二部分 · 分布式训练怎么选
+
+### 2.1 三种基本并行的切分对象
+
+| 并行 | 切什么 | 解决什么问题 | 通信特点 |
+| --- | --- | --- | --- |
+| 数据并行 DDP | 切**数据**，每卡一份完整模型 | 用更多卡加速、扩大有效 batch | 每步 AllReduce 同步梯度 |
+| 张量并行 TP | 切单层**矩阵/算子**到多卡 | 单层都装不下的超大模型 | 层内频繁 AllReduce，需 NVLink 高速互联 |
+| 流水线并行 PP | 切**层**，不同卡放不同层段 | 模型层数太多、按阶段分布 | 微批次流水，有 bubble 空转 |
+
+### 2.2 DeepSpeed ZeRO：在数据并行内部逐级省显存
+
+普通 DDP 每张卡都冗余存一份"参数 + 梯度 + 优化器状态"。ZeRO 沿着数据并行组**逐级把这些状态切开分摊**：
+
+| 阶段 | 分片的内容 | 省显存程度 | 通信开销 |
+| --- | --- | --- | --- |
+| ZeRO-1 | 只切**优化器状态** | 小 | 几乎不增 |
+| ZeRO-2 | 优化器状态 + **梯度** | 中 | 略增 |
+| ZeRO-3 | 优化器状态 + 梯度 + **参数**（用时才 all-gather 取回） | 大 | 明显增加 |
+
+- ZeRO-1/2 对代码几乎无侵入、提速/省显存平衡好，是单机多卡首选；
+- ZeRO-3 能把超大模型摊到多卡，但参数要反复 gather/scatter，通信量大，最好配 NVLink 与 `stage3_gather_16bit_weights_on_model_save`；
+- 还可叠加 **CPU/NVMe Offload**，把优化器状态甚至参数卸到内存/硬盘，用速度换显存（`zero_optimization.offload_optimizer`）。
+
+### 2.3 怎么选
+
+```
+单机多卡、模型能装下 ───────────────► DDP 或 ZeRO-2（最常用、性价比最高）
+模型勉强装不下、想再省 ─────────────► ZeRO-3 / 加 offload
+单层矩阵都装不下的超大模型 ─────────► TP（需高速互联）
+层数极多、跨多机 ──────────────────► PP + TP + ZeRO 组合（工业大模型）
+```
+
+> 在 LLaMA-Factory 里，DDP/ZeRO 只需在 yaml 写 `deepspeed: configs/ds_zero2.json` 并用 `torchrun --nproc_per_node=N` 启动，训练代码不用改——模板见 [`../configs`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/configs/readme)。
+
+---
+
+## 第三部分 · 量化与推理部署怎么选
+
+### 3.1 先分清"量化"和"推理引擎"是两件事
+
+- **量化**：降低权重/激活的数值位宽来省显存，代表是 GPTQ、AWQ（都是 4bit 权重量化）；
+- **推理引擎**：优化调度与显存管理来提吞吐，代表是 vLLM（核心是 PagedAttention + 连续批处理）。两者可以叠加：用 AWQ 量化的权重，放到 vLLM 里跑。
+
+### 3.2 两种主流 4bit 权重量化
+
+| 方法 | 量化思路 | 特点 |
+| --- | --- | --- |
+| GPTQ | 基于二阶信息逐层校准、一次性量化 | 成熟、生态广，需少量校准集 |
+| AWQ | 保护少数"显著权重通道"（activation-aware） | 通常精度略好、量化快，无需反向传播 |
+
+量化的代价是轻微精度损失（用 PPL 困惑度衡量），收益是显存近似按 16/4=4 倍缩小、让大模型能上小卡。**训练时量化（QLoRA）和推理时量化（GPTQ/AWQ）是两个场景，别混淆。**
+
+### 3.3 vLLM 为什么快：PagedAttention
+
+传统推理为每个请求预分配一整段连续 KV Cache 显存，碎片多、浪费大。vLLm 借鉴操作系统**分页内存**：把 KV Cache 切成固定大小 block，用一张块表按需映射，非连续存储也没关系，从而：
+
+- 显存碎片大幅减少，同样显存能并发更多请求；
+- **连续批处理（continuous batching）**：请求级动态拼批，不用等整批结束，吞吐显著提升。
+
+### 3.4 推理该看哪些指标（对应 experiments/quant_infer.csv）
+
+- **PPL**：困惑度，量化前后对比衡量精度损失（越小越好）；
+- **首 Token 延迟 TTFT**：用户等多久看到第一个字（预填充阶段决定）；
+- **TPOT**：每生成一个 token 的时间（解码阶段决定）；
+- **吞吐 tok/s 与并发数**：服务能力。
+
+> 这些数字强烈依赖模型大小、量化方式、batch/并发和显卡，**务必按 `experiments/quant_infer.csv` 的列在自己环境实测**，不要直接套用网上的数字下结论。
+
+### 3.5 实测对照：bf16 vs NF4-4bit（本仓库已复现）
+
+在 RTX 3080 Ti + Qwen2.5-0.5B 上用 transformers + bitsandbytes 实测，脚本与日志见 [`../experiments/quant_lab/`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/experiments/quant_lab/readme)，汇总见 [`../experiments/quant_infer.csv`](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/03-peft-framework/experiments/quant_infer.csv)。
+
+| 精度 | 模型显存 | PPL（↓） | TTFT | TPOT | 吞吐 |
+| --- | --- | --- | --- | --- | --- |
+| bf16 | 942 MB | 7.1544 | 27.2 ms | 25.2 ms | 39.6 tok/s |
+| NF4-4bit | 444 MB | 8.0397 | 61.2 ms | 47.2 ms | 21.4 tok/s |
+
+- **显存压到约 47%**（不是理论的 1/4：量化常数、默认不量化的 lm_head、固定 CUDA 开销都占空间；模型越大，纯权重占比越高，越接近 1/4）；
+- **PPL 上升约 12%**，这是 4bit 的精度代价，小模型对量化更敏感，大模型通常更"抗量化"；
+- **这张卡上 4bit 反而更慢**：每次前向都要把 4bit 反量化回 bf16 计算，而 0.5B 小模型根本不受显存带宽瓶颈，省带宽没有收益、反量化却有成本。4bit 的真正价值是"让原本放不下的模型放得下 / 省出显存开更大 batch 与更长上下文"，而不是给小模型提速；当模型大到带宽受限，量化才可能同时带来吞吐收益。GPTQ/AWQ/vLLM 未实测，对应行留空。
+
+---
+
+## 收尾：三类选型的共同方法论
+
+1. **先量显存瓶颈在哪**（参数/优化器/激活/KV Cache），再决定用 PEFT、ZeRO 还是量化；
+2. **一次只改一个变量**做对照（这正是 `experiments/` 四张空表的设计初衷）；
+3. 选型结论永远绑定**具体模型规模、硬件和任务**，脱离约束谈"哪个最好"没有意义。

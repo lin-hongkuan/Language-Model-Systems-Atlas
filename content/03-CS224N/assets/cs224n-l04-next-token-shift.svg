@@ -1,0 +1,38 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 410" role="img" aria-labelledby="title desc">
+  <title id="title">Next-token 训练的输入与目标错位</title>
+  <desc id="desc">序列我、喜欢、深度、学习被拆成三个预测位置。输入是我、喜欢、深度，右移一位的目标是喜欢、深度、学习，因此每个输入前缀预测下一 token。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="#315f91"/></marker>
+    <style>
+      text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}
+      .title{font-size:24px;font-weight:700}.head{font-size:18px;font-weight:650}.token{font-size:21px;font-weight:650}.small{font-size:15px;fill:#52677e}
+      .input{fill:#fff;stroke:#91abc5;stroke-width:2}.target{fill:#e5f0fb;stroke:#315f91;stroke-width:2}.arrow{fill:none;stroke:#315f91;stroke-width:2.5}
+    </style>
+  </defs>
+  <rect width="1180" height="410" rx="24" fill="#f7faff"/>
+  <text x="590" y="44" text-anchor="middle" class="title">Next-token 训练：输入与标签错开一格</text>
+  <text x="55" y="128" class="head">原始序列</text>
+  <text x="55" y="222" class="head">输入 X</text>
+  <text x="55" y="316" class="head">目标 Y</text>
+
+  <g text-anchor="middle">
+    <rect class="input" x="230" y="91" width="180" height="55" rx="12"/><text class="token" x="320" y="126">我</text>
+    <rect class="input" x="450" y="91" width="180" height="55" rx="12"/><text class="token" x="540" y="126">喜欢</text>
+    <rect class="input" x="670" y="91" width="180" height="55" rx="12"/><text class="token" x="760" y="126">深度</text>
+    <rect class="input" x="890" y="91" width="180" height="55" rx="12"/><text class="token" x="980" y="126">学习</text>
+
+    <rect class="input" x="230" y="185" width="180" height="55" rx="12"/><text class="token" x="320" y="220">我</text>
+    <rect class="input" x="450" y="185" width="180" height="55" rx="12"/><text class="token" x="540" y="220">喜欢</text>
+    <rect class="input" x="670" y="185" width="180" height="55" rx="12"/><text class="token" x="760" y="220">深度</text>
+    <rect x="890" y="185" width="180" height="55" rx="12" fill="#f0f2f5" stroke="#d6dee7" stroke-width="2"/><text class="small" x="980" y="218">不作为输入</text>
+
+    <rect x="230" y="279" width="180" height="55" rx="12" fill="#f0f2f5" stroke="#d6dee7" stroke-width="2"/><text class="small" x="320" y="312">没有前一项</text>
+    <rect class="target" x="450" y="279" width="180" height="55" rx="12"/><text class="token" x="540" y="314">喜欢</text>
+    <rect class="target" x="670" y="279" width="180" height="55" rx="12"/><text class="token" x="760" y="314">深度</text>
+    <rect class="target" x="890" y="279" width="180" height="55" rx="12"/><text class="token" x="980" y="314">学习</text>
+  </g>
+  <path class="arrow" marker-end="url(#arrow)" d="M320 244v27"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M540 244v27"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M760 244v27"/>
+  <text x="590" y="378" text-anchor="middle" class="small">每个位置的预测只比较右移一格的真实 token；实际数据还会处理 BOS、EOS 和 PAD。</text>
+</svg>

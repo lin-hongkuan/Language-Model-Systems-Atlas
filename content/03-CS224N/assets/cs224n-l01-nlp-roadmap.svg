@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 430" role="img" aria-labelledby="title desc">
+  <title id="title">NLP 方法演进与课程计算链</title>
+  <desc id="desc">从人工规则、统计方法、神经表示到预训练模型的概念演进；下方展示文本经 token 表示、模型、训练信号到评估应用的计算链。各类方法会按场景并存。</desc>
+  <defs>
+    <marker id="arrow-l01" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.card{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .primary{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .title{font:700 26px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 19px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .micro{font:14px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#647991}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l01)}
+      .rule{stroke:#d6e4f4;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="430" rx="22"/>
+  <text class="title" x="48" y="49">NLP：从手写规则走向可训练的语言模型</text>
+  <text class="small" x="49" y="75">方法逐步扩展了表示与学习能力，但旧方法不会因新方法出现而全部消失</text>
+
+  <rect class="card" x="42" y="99" width="273" height="145" rx="16"/>
+  <circle cx="68" cy="124" r="14" fill="#3977c3"/><text x="68" y="129" text-anchor="middle" font="700 14px sans-serif" fill="#fff">1</text>
+  <text class="label" x="178" y="137" text-anchor="middle">规则系统</text>
+  <text class="small" x="178" y="169" text-anchor="middle">词典 · 语法 · 人工规则</text>
+  <line class="rule" x1="65" y1="187" x2="292" y2="187"/>
+  <text class="micro" x="178" y="215" text-anchor="middle">清楚可控，覆盖新表达困难</text>
+
+  <path class="line" d="M320 171 L342 171"/>
+  <rect class="card" x="350" y="99" width="273" height="145" rx="16"/>
+  <circle cx="376" cy="124" r="14" fill="#3977c3"/><text x="376" y="129" text-anchor="middle" font="700 14px sans-serif" fill="#fff">2</text>
+  <text class="label" x="486" y="137" text-anchor="middle">统计 NLP</text>
+  <text class="small" x="486" y="169" text-anchor="middle">语料 · 特征 · 概率</text>
+  <line class="rule" x1="373" y1="187" x2="600" y2="187"/>
+  <text class="micro" x="486" y="215" text-anchor="middle">从数据估计规律，依赖特征设计</text>
+
+  <path class="line" d="M628 171 L650 171"/>
+  <rect class="card" x="658" y="99" width="273" height="145" rx="16"/>
+  <circle cx="684" cy="124" r="14" fill="#3977c3"/><text x="684" y="129" text-anchor="middle" font="700 14px sans-serif" fill="#fff">3</text>
+  <text class="label" x="794" y="137" text-anchor="middle">神经表示</text>
+  <text class="small" x="794" y="169" text-anchor="middle">词向量 · RNN · Transformer</text>
+  <line class="rule" x1="681" y1="187" x2="908" y2="187"/>
+  <text class="micro" x="794" y="215" text-anchor="middle">表示和特征由训练共同学习</text>
+
+  <path class="line" d="M936 171 L958 171"/>
+  <rect class="primary" x="966" y="99" width="273" height="145" rx="16"/>
+  <circle cx="992" cy="124" r="14" fill="#3977c3"/><text x="992" y="129" text-anchor="middle" font="700 14px sans-serif" fill="#fff">4</text>
+  <text class="label" x="1102" y="137" text-anchor="middle">预训练模型</text>
+  <text class="small" x="1102" y="169" text-anchor="middle">海量文本 · 自监督目标</text>
+  <line class="rule" x1="989" y1="187" x2="1216" y2="187"/>
+  <text class="micro" x="1102" y="215" text-anchor="middle">再适配、检索、评测与部署</text>
+
+  <text class="label" x="48" y="283">贯穿各讲的计算链</text>
+  <rect class="card" x="42" y="302" width="202" height="73" rx="13"/>
+  <text class="label" x="143" y="333" text-anchor="middle">文本 / 语料</text>
+  <text class="micro" x="143" y="356" text-anchor="middle">原始输入与上下文</text>
+  <path class="line" d="M250 339 L265 339"/>
+  <rect class="card" x="273" y="302" width="202" height="73" rx="13"/>
+  <text class="label" x="374" y="333" text-anchor="middle">Tokenizer + 表示</text>
+  <text class="micro" x="374" y="356" text-anchor="middle">token ID → 向量</text>
+  <path class="line" d="M481 339 L496 339"/>
+  <rect class="card" x="504" y="302" width="202" height="73" rx="13"/>
+  <text class="label" x="605" y="333" text-anchor="middle">模型计算</text>
+  <text class="micro" x="605" y="356" text-anchor="middle">上下文 → logits</text>
+  <path class="line" d="M712 339 L727 339"/>
+  <rect class="card" x="735" y="302" width="202" height="73" rx="13"/>
+  <text class="label" x="836" y="333" text-anchor="middle">训练信号</text>
+  <text class="micro" x="836" y="356" text-anchor="middle">目标 → 损失 → 更新</text>
+  <path class="line" d="M943 339 L958 339"/>
+  <rect class="primary" x="966" y="302" width="273" height="73" rx="13"/>
+  <text class="label" x="1102" y="333" text-anchor="middle">评估与应用</text>
+  <text class="micro" x="1102" y="356" text-anchor="middle">检查能力、错误和成本</text>
+  <text class="micro" x="640" y="407" text-anchor="middle">学习新方法时，持续追问：输入是什么？输出是什么？监督从哪来？错误怎样发现？</text>
+</svg>

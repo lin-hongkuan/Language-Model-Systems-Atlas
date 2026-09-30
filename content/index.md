@@ -42,6 +42,11 @@ tags:
 <strong>公式、形状与术语</strong>
 <span class="atlas-card-summary">快速核对注意力、损失函数、优化器和张量维度。</span>
 </a>
+<a class="atlas-card" href="./06-hands-on-llm/">
+<span class="atlas-card-kicker">OPEN TEXTBOOK · 06</span>
+<strong>Hands-on LLM 开源实战手册</strong>
+<span class="atlas-card-summary">浏览 MIT 授权的中文讲义、Word 文档和实验图表。</span>
+</a>
 <a class="atlas-card" href="./99-sources/">
 <span class="atlas-card-kicker">SOURCES · 99</span>
 <strong>来源与许可</strong>

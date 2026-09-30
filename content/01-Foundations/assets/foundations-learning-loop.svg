@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" role="img" aria-labelledby="title desc">
+  <title id="title">从文本到参数更新的学习路径</title>
+  <desc id="desc">文本经过 Python 与 tokenizer 变成整数 token id，再形成带 batch、序列和特征轴的张量，输入模型得到 logits 和损失，最后由反向传播计算梯度并更新参数。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1L10 6L1 11" fill="none" stroke="#4779ad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #263d55; }
+      .title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 24px; font-weight: 700; }
+      .label { font-size: 17px; font-weight: 700; }
+      .sample { font-size: 15px; }
+      .detail { font-size: 13px; fill: #61788f; }
+      .step { font-family: "Cascadia Code", Consolas, monospace; font-size: 12px; fill: #315f91; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="1180" height="340" rx="20" fill="#f7faff"/>
+  <text x="42" y="47" class="title">三页基础讲义，追踪同一份数据一路变成一次更新</text>
+  <g>
+    <rect x="36" y="103" width="188" height="137" rx="14" fill="#ffffff" stroke="#afc7df" stroke-width="2"/>
+    <text x="55" y="133" class="step">PYTHON</text>
+    <text x="55" y="166" class="label">短文本</text>
+    <text x="55" y="194" class="sample">“我 学 NLP”</text>
+    <text x="55" y="220" class="detail">字符串、列表、词表查找</text>
+
+    <path d="M229 171H269" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="282" y="103" width="194" height="137" rx="14" fill="#eef4fb" stroke="#9bb9d7" stroke-width="2"/>
+    <text x="301" y="133" class="step">NUMPY / TENSOR</text>
+    <text x="301" y="166" class="label">token id → 向量</text>
+    <text x="301" y="194" class="sample">[B,T] → [B,T,D]</text>
+    <text x="301" y="220" class="detail">每个轴都有明确含义</text>
+
+    <path d="M481 171H521" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="534" y="103" width="194" height="137" rx="14" fill="#ffffff" stroke="#afc7df" stroke-width="2"/>
+    <text x="553" y="133" class="step">FORWARD</text>
+    <text x="553" y="166" class="label">模型给出预测</text>
+    <text x="553" y="194" class="sample">logits: [B,T,V]</text>
+    <text x="553" y="220" class="detail">每个位置预测下一 token</text>
+
+    <path d="M733 171H773" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="786" y="103" width="164" height="137" rx="14" fill="#eef4fb" stroke="#9bb9d7" stroke-width="2"/>
+    <text x="805" y="133" class="step">LOSS</text>
+    <text x="805" y="166" class="label">比较目标</text>
+    <text x="805" y="194" class="sample">交叉熵</text>
+    <text x="805" y="220" class="detail">猜错越多，惩罚越大</text>
+
+    <path d="M955 171H995" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="1008" y="103" width="136" height="137" rx="14" fill="#dceafb" stroke="#7ea3cb" stroke-width="2"/>
+    <text x="1025" y="133" class="step">UPDATE</text>
+    <text x="1025" y="166" class="label">反向与更新</text>
+    <text x="1025" y="194" class="sample">grad → step</text>
+    <text x="1025" y="220" class="detail">参数更适合样本</text>
+  </g>
+  <rect x="36" y="268" width="1108" height="43" rx="10" fill="#ffffff" stroke="#d9e4ef"/>
+  <text x="55" y="295" class="detail">读代码时持续追问：现在的数据是什么类型？shape 是什么？这行运算后保留或消去了哪个轴？</text>
+</svg>

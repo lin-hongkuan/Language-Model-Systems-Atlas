@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" role="img" aria-labelledby="title desc">
+  <title id="title">推测解码：批量验证、bonus token 与 KV cache 回滚</title>
+  <desc id="desc">草稿模型提出多个 token。目标模型以因果掩码在一次前向中计算每个提案位置的目标分布。如果所有提案都被接受，从下一位置的目标分布采样 bonus token；若在第 i 个位置拒绝，就从正残差分布采样校正 token，并回滚该位置及后续草稿的 KV 缓存。</desc>
+  <defs>
+    <marker id="arrow-l13" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <marker id="arrow-muted-l13" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8299b5"/>
+    </marker>
+    <style>
+      .bg{fill:#f6faff}.card{fill:#fff;stroke:#c7d9ee;stroke-width:2}
+      .blue{fill:#e9f3ff;stroke:#3977c3;stroke-width:2}
+      .soft{fill:#f2f7fd;stroke:#a9bfd9;stroke-width:1.6}
+      .green{fill:#edf8f3;stroke:#62a98a;stroke-width:1.7}
+      .rose{fill:#fff1f0;stroke:#d98683;stroke-width:1.7}
+      .title{font:700 28px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173b66}
+      .heading{font:700 20px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#193f6b}
+      .body{font:16px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#3f5874}
+      .small{font:14px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#5d7189}
+      .micro{font:13px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#6a7f98}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l13)}
+      .branch{stroke:#8299b5;stroke-width:2.3;fill:none;marker-end:url(#arrow-muted-l13)}
+      .dash{stroke:#91a9c4;stroke-width:1.7;stroke-dasharray:6 5;fill:none}
+      .chiptext{font:700 15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#244c78}
+      .check{fill:#277a59}.reject{fill:#a84e4b}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="880" rx="24"/>
+  <text class="title" x="46" y="48">推测解码：一次验证，多种正确分支</text>
+  <text class="body" x="48" y="78">草稿模型先提议；目标模型按正确的条件分布验证，并负责每一次校正与额外生成。</text>
+
+  <rect class="card" x="42" y="106" width="278" height="178" rx="16"/>
+  <circle cx="69" cy="134" r="15" fill="#3977c3"/>
+  <text x="69" y="139" text-anchor="middle" font="700 14px sans-serif" fill="#fff">1</text>
+  <text class="heading" x="181" y="141" text-anchor="middle">草稿模型 q</text>
+  <text class="small" x="181" y="169" text-anchor="middle">沿着自己的提案前缀采样</text>
+  <rect class="soft" x="66" y="190" width="67" height="43" rx="9"/><text class="chiptext" x="99" y="217" text-anchor="middle">y₁</text>
+  <rect class="soft" x="145" y="190" width="67" height="43" rx="9"/><text class="chiptext" x="178" y="217" text-anchor="middle">y₂</text>
+  <rect class="soft" x="224" y="190" width="67" height="43" rx="9"/><text class="chiptext" x="257" y="217" text-anchor="middle">… yₖ</text>
+  <text class="micro" x="181" y="258" text-anchor="middle">得到 k 个候选，尚未写入最终答案</text>
+
+  <path class="line" d="M324 194 L338 194"/>
+
+  <rect class="blue" x="346" y="106" width="582" height="178" rx="16"/>
+  <circle cx="373" cy="134" r="15" fill="#3977c3"/>
+  <text x="373" y="139" text-anchor="middle" font="700 14px sans-serif" fill="#fff">2</text>
+  <text class="heading" x="637" y="141" text-anchor="middle">目标模型 p：一次因果前向，批量验证</text>
+  <text class="small" x="637" y="170" text-anchor="middle">位置 i 只看已有上下文 x 和更早的提案 y₁…yᵢ₋₁</text>
+  <rect x="384" y="188" width="506" height="42" rx="9" fill="#fff" stroke="#c7d9ee" stroke-width="1.5"/>
+  <text class="chiptext" x="637" y="215" text-anchor="middle">位置：  1     2     …     k       k+1</text>
+  <text class="small" x="637" y="253" text-anchor="middle">分布： p₁    p₂    …    pₖ   pₖ₊₁（全接受时供 bonus 使用）</text>
+
+  <path class="line" d="M932 194 L946 194"/>
+  <rect class="card" x="954" y="106" width="284" height="178" rx="16"/>
+  <text class="heading" x="1096" y="142" text-anchor="middle">为什么能并行？</text>
+  <text class="body" x="1096" y="177" text-anchor="middle">因果掩码隔开未来提案</text>
+  <text class="small" x="1096" y="204" text-anchor="middle">各位置能同时算出 logits，</text>
+  <text class="small" x="1096" y="228" text-anchor="middle">仍各自对应正确前缀。</text>
+  <text class="micro" x="1096" y="257" text-anchor="middle">p₁ 通常由当前上下文缓存提供</text>
+
+  <path class="dash" d="M637 284 L637 308 L330 308"/>
+  <path class="dash" d="M637 308 L944 308"/>
+  <path class="branch" d="M330 308 L330 333"/>
+  <path class="branch" d="M944 308 L944 333"/>
+
+  <rect class="card" x="42" y="344" width="570" height="214" rx="16"/>
+  <text class="heading" x="327" y="378" text-anchor="middle">分支 A · k 个草稿全部接受</text>
+  <rect class="green" x="76" y="395" width="91" height="41" rx="9"/><text class="chiptext check" x="121" y="421" text-anchor="middle">y₁ ✓</text>
+  <rect class="green" x="176" y="395" width="91" height="41" rx="9"/><text class="chiptext check" x="221" y="421" text-anchor="middle">y₂ ✓</text>
+  <rect class="green" x="276" y="395" width="91" height="41" rx="9"/><text class="chiptext check" x="321" y="421" text-anchor="middle">… yₖ ✓</text>
+  <path class="line" d="M372 415 L394 415"/>
+  <rect class="blue" x="404" y="395" width="171" height="41" rx="9"/>
+  <text class="chiptext" x="489" y="421" text-anchor="middle">bonus z ~ pₖ₊₁</text>
+  <text class="body" x="327" y="473" text-anchor="middle">输出 y₁…yₖ，再追加目标模型抽出的 z</text>
+  <text class="small" x="327" y="505" text-anchor="middle">本轮最多提交 k+1 个 token；z 尚未参与后续验证</text>
+
+  <rect class="card" x="632" y="344" width="606" height="214" rx="16"/>
+  <text class="heading" x="935" y="378" text-anchor="middle">分支 B · 第 i 个位置首次拒绝</text>
+  <rect class="green" x="670" y="395" width="112" height="41" rx="9"/><text class="small check" x="726" y="421" text-anchor="middle">y₁…yᵢ₋₁ ✓</text>
+  <rect class="rose" x="791" y="395" width="112" height="41" rx="9"/><text class="chiptext reject" x="847" y="421" text-anchor="middle">yᵢ ×</text>
+  <rect class="soft" x="912" y="395" width="110" height="41" rx="9"/><text class="small" x="967" y="421" text-anchor="middle">后缀丢弃</text>
+  <path class="line" d="M1027 415 L1047 415"/>
+  <rect class="rose" x="1057" y="395" width="145" height="41" rx="9"/>
+  <text class="small reject" x="1129" y="421" text-anchor="middle">z ~ [pᵢ−qᵢ]₊</text>
+  <text class="body" x="935" y="473" text-anchor="middle">保留已接受前缀，用归一化正残差抽 z 替换 yᵢ</text>
+  <text class="small" x="935" y="505" text-anchor="middle">丢弃 yᵢ…yₖ，接着从新前缀继续生成</text>
+
+  <rect class="card" x="42" y="580" width="1196" height="251" rx="16"/>
+  <text class="heading" x="640" y="615" text-anchor="middle">KV cache 与验证结果同步：接受就保留，拒绝就回滚</text>
+  <path class="dash" d="M640 632 L640 813"/>
+
+  <text class="body" x="78" y="653">全接受：验证前向暂时算出整段候选的 KV</text>
+  <rect class="soft" x="78" y="671" width="174" height="42" rx="8"/>
+  <text class="small" x="165" y="698" text-anchor="middle">已有上下文 KV</text>
+  <path class="line" d="M257 692 L279 692"/>
+  <rect class="green" x="290" y="671" width="258" height="42" rx="8"/>
+  <text class="small" x="419" y="698" text-anchor="middle">保留 KV(y₁ … yₖ)</text>
+  <text class="body" x="78" y="749">bonus z 由 pₖ₊₁ 抽出并写入输出。</text>
+  <text class="small" x="78" y="777">z 此时还没有 KV；下一轮把 z 输入目标模型后才追加。</text>
+
+  <text class="body" x="675" y="653">第 i 个拒绝：把目标缓存截回已接受前缀</text>
+  <rect class="soft" x="675" y="671" width="158" height="42" rx="8"/>
+  <text class="small" x="754" y="698" text-anchor="middle">已有上下文 KV</text>
+  <path class="line" d="M838 692 L859 692"/>
+  <rect class="green" x="870" y="671" width="119" height="42" rx="8"/>
+  <text class="small" x="929" y="698" text-anchor="middle">保留 y₁…yᵢ₋₁</text>
+  <rect class="rose" x="999" y="671" width="194" height="42" rx="8"/>
+  <text class="small reject" x="1096" y="698" text-anchor="middle">删除 KV(yᵢ … yₖ)</text>
+  <text class="body" x="675" y="749">校正 token z 已输出，但还没有 KV。</text>
+  <text class="small" x="675" y="777">下一轮输入 z 时再追加；两套缓存只保留已处理前缀。</text>
+
+  <text class="micro" x="640" y="814" text-anchor="middle">K/V 是每层的 Key 与 Value；草稿缓存也须回滚或重建。残差为 max(pᵢ−qᵢ, 0) 归一化。</text>
+</svg>

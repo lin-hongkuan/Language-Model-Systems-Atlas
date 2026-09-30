@@ -1,0 +1,54 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" role="img" aria-labelledby="title desc">
+  <title id="title">从词 ID 到 Skip-gram 预测</title>
+  <desc id="desc">词表把深度编码为 ID 2；输入嵌入表按 ID 查出向量；中心向量与输出词向量做点积，得到词表分数并经 Softmax 变成上下文预测概率。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="#315f91"/></marker>
+    <style>
+      text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}
+      .title{font-size:24px;font-weight:700}.head{font-size:19px;font-weight:650}.body{font-size:17px}.small{font-size:15px;fill:#52677e}.box{fill:#fff;stroke:#91abc5;stroke-width:2}.blue{fill:#dceaf7;stroke:#315f91;stroke-width:2}.line{fill:none;stroke:#315f91;stroke-width:3}
+    </style>
+  </defs>
+  <rect width="1200" height="450" rx="24" fill="#f7faff"/>
+  <text x="600" y="43" text-anchor="middle" class="title">Skip-gram 一次前向：编号查表，向量打分，上下文归一化</text>
+  <g>
+    <rect class="box" x="34" y="111" width="195" height="233" rx="15"/>
+    <text x="131" y="144" text-anchor="middle" class="head">词表 / tokenizer</text>
+    <text x="69" y="188" class="body">0　我</text><text x="69" y="222" class="body">1　喜欢</text>
+    <rect x="54" y="237" width="155" height="38" rx="8" fill="#dceaf7"/>
+    <text x="69" y="263" class="body" font-weight="700">2　深度</text>
+    <text x="69" y="303" class="body">3　学习</text>
+    <text x="131" y="326" text-anchor="middle" class="small">token ID = 查表地址</text>
+
+    <rect class="blue" x="279" y="133" width="211" height="189" rx="15"/>
+    <text x="384" y="166" text-anchor="middle" class="head">输入嵌入表</text>
+    <text x="303" y="207" class="body">E<tspan baseline-shift="sub" font-size="13">in</tspan> [0] → 向量</text>
+    <rect x="299" y="219" width="170" height="32" rx="7" fill="#fff"/>
+    <text x="311" y="241" class="body" font-weight="700">E<tspan baseline-shift="sub" font-size="13">in</tspan> [2] → v<tspan baseline-shift="sub" font-size="13">深度</tspan></text>
+    <text x="303" y="276" class="body">E<tspan baseline-shift="sub" font-size="13">in</tspan> [3] → 向量</text>
+    <text x="384" y="303" text-anchor="middle" class="small">形状 [V, d]</text>
+
+    <rect class="box" x="552" y="153" width="178" height="152" rx="15"/>
+    <text x="641" y="185" text-anchor="middle" class="head">点积兼容分数</text>
+    <text x="641" y="224" text-anchor="middle" class="body">u<tspan baseline-shift="sub" font-size="13">o</tspan> · v<tspan baseline-shift="sub" font-size="13">深度</tspan></text>
+    <text x="641" y="258" text-anchor="middle" class="small">每个候选词一个 logit</text>
+    <text x="641" y="284" text-anchor="middle" class="small">共 V 个分数</text>
+
+    <rect class="blue" x="791" y="153" width="168" height="152" rx="15"/>
+    <text x="875" y="185" text-anchor="middle" class="head">Softmax</text>
+    <text x="875" y="226" text-anchor="middle" class="body">分数 → 概率</text>
+    <text x="875" y="260" text-anchor="middle" class="small">候选概率之和 = 1</text>
+
+    <rect class="box" x="1022" y="111" width="145" height="233" rx="15"/>
+    <text x="1094" y="146" text-anchor="middle" class="head">上下文</text>
+    <text x="1094" y="197" text-anchor="middle" class="body">喜欢</text>
+    <rect x="1040" y="211" width="109" height="40" rx="8" fill="#dceaf7"/>
+    <text x="1094" y="237" text-anchor="middle" class="body" font-weight="700">学习</text>
+    <text x="1094" y="285" text-anchor="middle" class="small">真实窗口中的</text>
+    <text x="1094" y="307" text-anchor="middle" class="small">词是正例</text>
+  </g>
+  <path class="line" marker-end="url(#arrow)" d="M229 226h43"/>
+  <path class="line" marker-end="url(#arrow)" d="M490 226h53"/>
+  <path class="line" marker-end="url(#arrow)" d="M730 226h53"/>
+  <path class="line" marker-end="url(#arrow)" d="M959 226h53"/>
+  <text x="600" y="397" text-anchor="middle" class="small">示意数字和词表刻意缩小；实际 Word2Vec 会从大量窗口产生许多（中心词，上下文词）训练对。</text>
+</svg>

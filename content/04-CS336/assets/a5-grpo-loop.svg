@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">可验证奖励下的 GRPO 概念训练循环</title>
+  <desc id="desc">为每个 prompt 从记录了版本的旧策略抽样多条回答；解析最终答案并评分，按 prompt 计算组内优势；用 mask 对齐回复 token，根据新旧策略概率比与裁剪目标更新，最后在独立集合审计。</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6382a9"/></marker></defs>
+  <rect width="900" height="620" rx="28" fill="#f5f9ff"/>
+  <text x="38" y="44" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5" fill="#6684a8">VERIFIABLE REWARD · GRPO SKETCH</text>
+  <g fill="none" stroke="#6382a9" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M425 135H475"/><path d="M680 170V205"/><path d="M475 275H425"/><path d="M220 310V345"/><path d="M425 415H475"/>
+  </g>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+    <g><rect x="35" y="65" width="390" height="105" rx="18" fill="#fff" stroke="#c3d5ea" stroke-width="2"/><circle cx="69" cy="100" r="17" fill="#e7f0ff"/><text x="69" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">1</text><text x="100" y="106" font-size="21" font-weight="700" fill="#193556">输入 prompt</text><text x="62" y="144" font-size="16" fill="#536a84">固定题目、模板和评测拆分</text></g>
+    <g><rect x="475" y="65" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="509" cy="100" r="17" fill="#e7f0ff"/><text x="509" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">2</text><text x="540" y="106" font-size="21" font-weight="700" fill="#193556">旧策略采样 G 条</text><text x="502" y="144" font-size="16" fill="#536a84">记录版本、随机种子与 response mask</text></g>
+    <g><rect x="475" y="205" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="509" cy="240" r="17" fill="#e7f0ff"/><text x="509" y="246" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">3</text><text x="540" y="246" font-size="21" font-weight="700" fill="#193556">答案解析与奖励</text><text x="502" y="284" font-size="16" fill="#536a84">同时记录格式失败和抽样审查结果</text></g>
+    <g><rect x="35" y="205" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="69" cy="240" r="17" fill="#e7f0ff"/><text x="69" y="246" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">4</text><text x="100" y="246" font-size="21" font-weight="700" fill="#193556">组内标准化优势</text><text x="62" y="284" font-size="16" fill="#536a84">相对组均值高者为正、低者为负</text></g>
+    <g><rect x="35" y="345" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="69" cy="380" r="17" fill="#e7f0ff"/><text x="69" y="386" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">5</text><text x="100" y="386" font-size="21" font-weight="700" fill="#193556">对齐 token 并更新</text><text x="62" y="424" font-size="16" fill="#536a84">比较新旧 log-prob；检查 clip / KL</text></g>
+    <g><rect x="475" y="345" width="390" height="105" rx="18" fill="#fff" stroke="#9bb9dd" stroke-width="2"/><circle cx="509" cy="380" r="17" fill="#dceaff"/><text x="509" y="386" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">6</text><text x="540" y="386" font-size="21" font-weight="700" fill="#193556">独立评估与复盘</text><text x="502" y="424" font-size="16" fill="#536a84">准确率、解析、长度、样本和总成本</text></g>
+  </g>
+  <path d="M670 450V495H880V117H865" fill="none" stroke="#93aac6" stroke-width="2.5" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+  <text x="445" y="534" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#315983">检查整条链路：采样分布 → 奖励 → 梯度 → 独立验证</text>
+  <text x="445" y="566" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="15" fill="#647e9a">奖励规则可验证，不代表它能覆盖推理质量的全部含义</text>
+</svg>

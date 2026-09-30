@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 340" role="img" aria-labelledby="title desc">
+  <title id="title">Python 数据流：文本、token、词表与 token id</title>
+  <desc id="desc">短文本先作为字符串保存，经 split 得到有序 token 列表，再通过词表字典查找得到整数 id 列表。下方标注了每一步的 Python 类型。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1L10 6L1 11" fill="none" stroke="#4779ad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #263d55; }
+      .title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 24px; font-weight: 700; }
+      .label { font-size: 17px; font-weight: 700; }
+      .value { font-size: 20px; }
+      .type { font-size: 14px; fill: #61788f; }
+      .code { font-family: "Cascadia Code", Consolas, monospace; font-size: 15px; fill: #315f91; }
+    </style>
+  </defs>
+  <rect width="1160" height="340" rx="20" fill="#f7faff"/>
+  <text x="42" y="48" class="title">先看程序里的“同一份文字”如何换表示方式</text>
+  <rect x="42" y="92" width="225" height="116" rx="14" fill="#ffffff" stroke="#afc7df" stroke-width="2"/>
+  <text x="62" y="124" class="label">1 · 原始文本</text>
+  <text x="62" y="160" class="value">“猫 喜欢 睡觉”</text>
+  <text x="62" y="189" class="type">str：一个字符串</text>
+  <path d="M278 150H331" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="278" y="126" class="code">split()</text>
+  <rect x="344" y="92" width="250" height="116" rx="14" fill="#eef4fb" stroke="#9bb9d7" stroke-width="2"/>
+  <text x="364" y="124" class="label">2 · 有序 token 列表</text>
+  <text x="364" y="160" class="value">[“猫”, “喜欢”, “睡觉”]</text>
+  <text x="364" y="189" class="type">list[str]：三个字符串</text>
+  <path d="M605 150H658" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="603" y="126" class="code">查词表字典</text>
+  <rect x="671" y="92" width="205" height="116" rx="14" fill="#ffffff" stroke="#afc7df" stroke-width="2"/>
+  <text x="691" y="124" class="label">3 · 词表映射</text>
+  <text x="691" y="157" class="value">“猫” → 0</text>
+  <text x="691" y="185" class="type">dict[str, int]</text>
+  <path d="M887 150H940" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="953" y="92" width="165" height="116" rx="14" fill="#e2eef9" stroke="#7ea3cb" stroke-width="2"/>
+  <text x="973" y="124" class="label">4 · 整数编号</text>
+  <text x="973" y="160" class="value">[0, 1, 2]</text>
+  <text x="973" y="189" class="type">list[int]</text>
+  <rect x="42" y="239" width="1076" height="66" rx="12" fill="#ffffff" stroke="#d9e4ef"/>
+  <text x="64" y="267" class="code">sentence = "猫 喜欢 睡觉"</text>
+  <text x="64" y="290" class="type">输入和输出都只是 Python 值。真实 tokenizer 更复杂，但仍要把文本编码成可供模型使用的 token id。</text>
+</svg>

@@ -64,6 +64,12 @@ h6,
   line-height: 1.3;
 }
 
+// Upstream Hands-on LLM notes carry their own first-level heading. Keep that
+// original heading and avoid printing Quartz's filename title a second time.
+body[data-slug^="06-hands-on-llm/source/"] .page-header .article-title {
+  display: none;
+}
+
 .atlas-header {
   display: flex;
   flex-direction: column;
@@ -209,6 +215,56 @@ h6,
   margin-top: 0.55rem;
 }
 
+.page figure.study-figure {
+  margin: 1.5rem 0;
+  padding: 0.8rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--light) 94%, var(--secondary));
+}
+
+.study-image-viewport {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-radius: 7px;
+  scrollbar-color: var(--gray) transparent;
+}
+
+.study-image-link {
+  display: block;
+  width: max-content;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.page .study-image-viewport img.study-figure-image {
+  display: block;
+  width: min(1000px, calc(100vw - 5rem));
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border-radius: 5px;
+}
+
+.page figure.study-figure figcaption {
+  margin: 0.7rem 0 0;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .study-image-link {
+    margin: 0;
+  }
+
+  .page .study-image-viewport img.study-figure-image {
+    width: 760px;
+  }
+}
+
 .page .katex-display,
 .page .math.math-display,
 .page mjx-container[display="true"] {
@@ -256,6 +312,10 @@ h6,
 
 .page a.internal {
   color: var(--secondary);
+}
+
+.page a.external[href^="https://blog.linhk.top/Language-Model-Systems-Atlas/"] > .external-icon {
+  display: none;
 }
 
 .atlas-hero {

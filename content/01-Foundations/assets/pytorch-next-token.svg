@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 330" role="img" aria-labelledby="title desc">
+  <title id="title">自回归语言模型的输入与下一个 token 目标</title>
+  <desc id="desc">输入序列包含“我、爱、NLP”，对应目标依次为“爱、NLP、结束标记”。箭头说明每个位置只预测下一个位置。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1L10 6L1 11" fill="none" stroke="#4779ad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #263d55; }
+      .title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 23px; font-weight: 700; }
+      .label { font-size: 16px; font-weight: 700; }
+      .token { font-size: 19px; font-weight: 700; }
+      .id { font-family: "Cascadia Code", Consolas, monospace; font-size: 14px; fill: #61788f; }
+      .note { font-size: 14px; fill: #61788f; }
+    </style>
+  </defs>
+  <rect width="1120" height="330" rx="20" fill="#f7faff"/>
+  <text x="42" y="47" class="title">读到当前位置，监督信号来自它后面的 token</text>
+  <text x="61" y="115" class="label">输入 x</text>
+  <text x="61" y="143" class="note">模型可见的前缀</text>
+  <text x="61" y="239" class="label">目标 y</text>
+  <text x="61" y="266" class="note">正确的下一个 id</text>
+  <g>
+    <rect x="226" y="83" width="198" height="77" rx="13" fill="#ffffff" stroke="#9bb9d7" stroke-width="2"/>
+    <rect x="456" y="83" width="198" height="77" rx="13" fill="#eaf2fb" stroke="#9bb9d7" stroke-width="2"/>
+    <rect x="686" y="83" width="198" height="77" rx="13" fill="#ffffff" stroke="#9bb9d7" stroke-width="2"/>
+    <rect x="226" y="194" width="198" height="77" rx="13" fill="#eaf2fb" stroke="#9bb9d7" stroke-width="2"/>
+    <rect x="456" y="194" width="198" height="77" rx="13" fill="#ffffff" stroke="#9bb9d7" stroke-width="2"/>
+    <rect x="686" y="194" width="198" height="77" rx="13" fill="#eaf2fb" stroke="#9bb9d7" stroke-width="2"/>
+    <text x="308" y="121" class="token">我</text><text x="296" y="147" class="id">id 0</text>
+    <text x="538" y="121" class="token">爱</text><text x="526" y="147" class="id">id 1</text>
+    <text x="768" y="121" class="token">NLP</text><text x="756" y="147" class="id">id 2</text>
+    <text x="299" y="232" class="token">爱</text><text x="296" y="258" class="id">id 1</text>
+    <text x="510" y="232" class="token">NLP</text><text x="526" y="258" class="id">id 2</text>
+    <text x="728" y="232" class="token">结束标记</text><text x="756" y="258" class="id">id 3</text>
+  </g>
+  <path d="M322 165V187" stroke="#4779ad" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M552 165V187" stroke="#4779ad" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M782 165V187" stroke="#4779ad" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="926" y="114" class="label">每个位置都有</text>
+  <text x="926" y="140" class="label">一个 next-token</text>
+  <text x="926" y="166" class="label">预测任务</text>
+  <text x="926" y="228" class="note">实际 batch 可以把</text>
+  <text x="926" y="251" class="note">多条序列并行计算。</text>
+</svg>

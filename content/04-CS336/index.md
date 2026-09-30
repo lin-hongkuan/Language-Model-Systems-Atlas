@@ -1,6 +1,6 @@
 ---
 title: CS336：从零构建语言模型
-description: CS336 官方课程路线、A1 概念导读与相关学习材料入口。
+description: CS336 中文概念讲义与课程地图：从 tokenizer 和 Transformer 基础，逐步到 GPU 系统、缩放实验、训练数据与 GRPO。
 tags:
   - CS336
   - language-modeling
@@ -17,12 +17,29 @@ Stanford CS336 的主线是理解并实现语言模型的完整生命周期：�
 - [[a3-scaling|A3 Scaling Laws：计算预算如何分给模型和数据]]：理解 IsoFLOPs、缩放曲线和外推的边界。
 - [[a4-data|A4 Data：从网页抓取到语言模型训练集]]：梳理抽取、过滤、去重和下游评估。
 - [[a5-alignment-rl|A5 Alignment and Reasoning RL：从提示基线到 GRPO]]：理解奖励、策略梯度、组相对优势与离策略权衡。
+- [[../06-Hands-on-LLM/index|Hands-on LLM 开源中文实战手册]]：原作者 MIT 授权的 CS336 精讲及预训练、对齐、Agent、RAG 实践笔记；完整目录见该入口。
+
+## 怎样读这些讲义
+
+每篇先用生活化问题解释“为什么有这个组件”，再逐步补术语、简化手算、关键公式与张量形状、端到端系统流程、取舍与常见错误，最后用带核对提示的练习自查。小例子用来学原理，不是官方作业题的解答。每篇也保留官方 handout、starter 与课程相关讲次入口；需要精确接口、规定和实验配置时，以课程当期资料为准。
+
+| 如果你目前卡在…… | 建议先读 | 读完要能解释 |
+|---|---|---|
+| 文本、byte、token 分不清 | [[a1-basics|A1 Basics]] | 一段文本怎样变成 token ID，模型的预测为什么错开一位 |
+| Transformer shape、loss、优化器很抽象 | [[a1-basics|A1 Basics]] | 从 $(B,T)$ 输入写到 $(B,T,V)$ logits，并算一个交叉熵 |
+| 训练为何慢、GPU 为何 OOM | [[a2-systems|A2 Systems]] | 吞吐的计时边界、显存账本，以及重算/低精度/并行的代价 |
+| “更大模型”该配多少数据 | [[a3-scaling|A3 Scaling Laws]] | 固定近似 FLOPs 预算比较 $N,D$，识别拟合和外推的边界 |
+| 网页很多为何不能直接训练 | [[a4-data|A4 Data]] | 抽取、过滤、去重与混合如何改变覆盖和数据质量 |
+| 模型如何从奖励中学习 | [[a5-alignment-rl|A5 Alignment and Reasoning RL]] | 用一组采样回答理解优势、概率比和 reward hacking |
+
+如果 Python、线性代数或概率基础较弱，不必先背完所有公式：A1 的每个例子都可以手写 shape 或把概率代进负对数；遇到未知术语先看表格定义，再回到公式。A2–A5 会逐步复用这些基础。
 
 ## 推荐阅读顺序
 
-1. 先看 [[course-map|课程地图]]，了解课程从基础模型到训练系统、数据和后训练的顺序。
-2. 阅读 [[a1-basics|A1 导读]]，建立从文本到下一个 token 的完整图景。
-3. 以官方 A1 handout 和仓库作为唯一实现规范；按章节阅读原讲义、自己推导并实现。
+1. 先看 [[course-map|课程地图]]，辨别课程讲次与作业编号；两者不是同一套编号。
+2. 阅读 [[a1-basics|A1 导读]]，用 tokenizer、因果注意力和交叉熵建立从文本到下一个 token 的完整图景。
+3. 按目标接着读 [[a2-systems|A2]] 到 [[a5-alignment-rl|A5]]；每章先写出自己的流程图或手算结果，再看核对提示。
+4. 以官方 handout 和仓库作为作业接口、规则与实验配置的规范；按课程要求阅读原讲义、独立推导并实现。
 
 ## 官方入口
 

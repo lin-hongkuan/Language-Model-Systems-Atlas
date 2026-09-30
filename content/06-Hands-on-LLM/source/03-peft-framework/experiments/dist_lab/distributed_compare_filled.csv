@@ -1,0 +1,9 @@
+strategy,world_size,model,gpu_mem_per_card_MB,train_runtime_s,samples_per_second,steps_per_second,sec_per_step,status,notes
+ddp,1,Qwen2.5-0.5B,10056,122.94,5.206,0.325,3.07,OK,"single-GPU baseline; paged_adamw_8bit; micro1 accum16 global-batch16; cutoff512 bf16 grad-ckpt; 40 steps; 2x3080Ti PCIe(no NVLink)"
+ddp,2,Qwen2.5-0.5B,10185/9770,68.98,9.278,0.580,1.72,OK,"2-GPU DDP micro1 accum8 gbatch16; speedup 1.78x (eff 89%); per-card mem ~same as single => DDP scales throughput but does NOT save per-card memory"
+ddp,2,Qwen2.5-1.5B,6678,,,,,OOM,"vanilla DDP OOM at optimizer-state init; fp32 Adam states of 1.5B ~18.5GB per full replica"
+zero1,2,Qwen2.5-1.5B,11166/10984,,,,,OOM,"ZeRO-1 shards optimizer states only; OOM in backward (needs 2.88GB, 2.47GB free); standard AdamW"
+zero2,2,Qwen2.5-1.5B,11102/11042,,,,,OOM,"ZeRO-2 also shards gradients; OOM at allreduce bucket, short by ~0.4GB; comm bucket lowered 5e8->2e7"
+zero3,2,Qwen2.5-1.5B,11913/11912,239.40,2.005,0.125,7.91,OK,"ZeRO-3 also shards parameters; ONLY config that runs 1.5B on 2x12GB; heavy all-gather -> 7.91s/it (trade memory for comm)"
+tp,-,-,,,,,,NA,"tensor parallel needs NVLink/fast interconnect; not applicable on PCIe 3080Ti pair; theory only"
+pp,-,-,,,,,,NA,"pipeline parallel needs more ranks + micro-batch schedule; not worthwhile at this scale; theory only"

@@ -1,0 +1,40 @@
+# Coding Agent · 终端 AI 编程智能体
+
+> 📚 **本模块属于 [Hands-on-LLM 动手学大模型](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/readme) 学习库 · 返回总览看完整学习路线**
+
+一个用 **Harness Engineering** 思路实现的终端 AI Coding Agent：在 ReAct（Thought→Action→Observation）循环之上，
+构建了 Skill 能力路由、记忆沉淀与按需注入、分层上下文压缩、主从多智能体协作与分层安全审查，
+以提升复杂编程任务下的执行准确率、上下文稳定性、推理效率与安全性。模型通过 OpenAI 兼容接口接入（默认 DeepSeek）。
+
+## 架构与模块
+| 模块 | 职责 |
+| --- | --- |
+| `mini_code_core.py` | Agent 内核：ReAct 循环、Harness（Tool Curfew、提交结果、无进展检测、终止条件）、工具注册与调度 |
+| `tools.py` | 编程工具集（读写文件、grep、编辑、远程执行等）与远程 SSH 执行配置 |
+| `skill_router.py` | Skill 能力体系：原子 Tool / 高层 Skill 分层，意图识别 + 关键词粗召回 + LLM 精排 |
+| `memory.py` | 记忆系统：程序性/情景记忆的“执行-反思-提炼-存储-索引-按需复用”闭环 |
+| `context_manager.py` | 分层上下文压缩：结构化摘要、大结果外置、占位压缩、超限兜底 |
+| `multi_agent.py` | 主从多智能体：Supervisor 规划审批 + Worker 微型循环执行，异步并发与失败三级处理 |
+| `security.py` | 分层安全过滤链：注入检测、操作边界、沙箱路径映射、分级确认、输出脱敏 |
+| `cli.py` | 交互式命令行入口 |
+
+## 快速开始
+```bash
+pip install -r requirements.txt
+cp .env.example .env   # 填入你的 DEEPSEEK_API_KEY
+python cli.py
+```
+
+## 目录
+- 根目录为核心源码与测试（`test_*.py`）；
+- `skills/`：高层 Skill 的提示模板（add-feature / fix-bug / refactor / code-review）；
+- `docs/`：教学与自测文档（问题答疑、架构自测问答、外部 Skill 设计调研）；
+- 推荐学习顺序：先读 [Agent 两步终止机制答疑：为什么最终答案不走 JSON](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91)（[Word 版](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91.docx)），理解 Harness 工程里"决策终止"与"答案生成"为什么要拆开；再用 [Agent 架构自测问答](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/agent%E6%9E%B6%E6%9E%84%E8%87%AA%E6%B5%8B%E9%97%AE%E7%AD%94)（[Word 版](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/agent%E6%9E%B6%E6%9E%84%E8%87%AA%E6%B5%8B%E9%97%AE%E7%AD%94.docx)）系统检验对 Harness、本 Agent 架构与安全设计的理解，每个结论都能在根目录源码中找到实现。此外可阅读 [外部 Skill 设计机制调研：以 mattpocock skills 为例](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/mattpocock-skills-%E5%88%86%E6%9E%90)（[Word 版](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/04-agent/docs/mattpocock-skills-%E5%88%86%E6%9E%90.docx)），对照剖析成熟 Skill 体系的拆分与路由思路，与本模块 skill_router 的实现互相印证。
+
+## 安全说明
+仓库**不包含任何真实 API Key / 服务器密码**，统一从环境变量读取（见 `.env.example`）。
+
+## 测试
+```bash
+python -m pytest -q   # 或直接 python test_scenarios.py
+```

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">CS224N 现代主题地图：课程主干、可选能力分支和评估回路</title>
+  <desc id="desc">L02 到 L05 是模型基础，连接预训练和后训练。分词影响预训练文本表示。后训练之后，PEFT 和 RAG/Agent 是可选择的适配分支，可以不使用，也可单独或同时使用。推理使用基础模型或这些可选能力。L11 评估贯穿所有环节，测量后反馈到数据、训练目标、适配和检索设置，形成迭代回路。</desc>
+  <defs>
+    <marker id="arrow-map" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <marker id="arrow-dash-map" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8299b5"/>
+    </marker>
+    <style>
+      .bg{fill:#f6faff}.card{fill:#fff;stroke:#c7d9ee;stroke-width:2}
+      .main{fill:#e9f3ff;stroke:#3977c3;stroke-width:2}
+      .optional{fill:#f5f9ff;stroke:#89a9cc;stroke-width:1.8;stroke-dasharray:7 5}
+      .eval{fill:#eef7ff;stroke:#9bbce0;stroke-width:1.8}
+      .soft{fill:#fff;stroke:#c7d9ee;stroke-width:1.5}
+      .title{font:700 29px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173b66}
+      .heading{font:700 20px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#193f6b}
+      .label{font:700 16px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#244c78}
+      .body{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#506780}
+      .small{font:13px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#647991}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-map)}
+      .dashed{stroke:#8299b5;stroke-width:2.3;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow-dash-map)}
+      .guide{stroke:#a2b7cf;stroke-width:1.7;stroke-dasharray:4 5;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="760" rx="24"/>
+  <text class="title" x="48" y="49">CS224N 现代主题地图</text>
+  <text class="body" x="49" y="79">先理解模型怎样训练；再看可选择的适配方式；用评估结果不断修正整套系统。</text>
+
+  <!-- Main learning path -->
+  <rect class="card" x="48" y="132" width="236" height="116" rx="15"/>
+  <text class="heading" x="166" y="169" text-anchor="middle">基础：L02–L05</text>
+  <text class="body" x="166" y="199" text-anchor="middle">词向量、梯度、序列</text>
+  <text class="body" x="166" y="222" text-anchor="middle">Attention 与 Transformer</text>
+
+  <path class="line" d="M288 190 L329 190"/>
+  <rect class="main" x="340" y="132" width="238" height="116" rx="15"/>
+  <text class="heading" x="459" y="169" text-anchor="middle">L07 · 预训练</text>
+  <text class="body" x="459" y="199" text-anchor="middle">从数据中学习下一 token</text>
+  <text class="small" x="459" y="222" text-anchor="middle">数据、目标、模型与算力</text>
+
+  <path class="line" d="M582 190 L623 190"/>
+  <rect class="main" x="634" y="132" width="238" height="116" rx="15"/>
+  <text class="heading" x="753" y="169" text-anchor="middle">L08 · 后训练</text>
+  <text class="body" x="753" y="199" text-anchor="middle">SFT、偏好学习、RLHF/DPO</text>
+  <text class="small" x="753" y="222" text-anchor="middle">塑造模型响应行为</text>
+
+  <path class="line" d="M876 190 L946 190"/>
+  <rect class="card" x="958" y="132" width="274" height="116" rx="15"/>
+  <text class="heading" x="1095" y="169" text-anchor="middle">L12–L13 · 推理</text>
+  <text class="body" x="1095" y="199" text-anchor="middle">解码策略与 test-time compute</text>
+  <text class="small" x="1095" y="222" text-anchor="middle">同时看正确率、延迟和成本</text>
+
+  <!-- Tokenization influences the data/model path -->
+  <rect class="card" x="48" y="310" width="236" height="104" rx="14"/>
+  <text class="heading" x="166" y="347" text-anchor="middle">L14 · 分词与多语言</text>
+  <text class="body" x="166" y="376" text-anchor="middle">切分影响序列长度与语言成本</text>
+  <text class="small" x="166" y="398" text-anchor="middle">是数据表示前提，不是末端步骤</text>
+  <path class="dashed" d="M285 359 L312 359 L312 277 L425 277 L425 254"/>
+  <text class="small" x="366" y="270" text-anchor="middle">影响 token 与数据预算</text>
+
+  <!-- Optional branches from the trained model -->
+  <path class="guide" d="M753 249 L753 291 L636 291"/>
+  <path class="guide" d="M753 291 L1000 291"/>
+  <path class="dashed" d="M636 291 L636 320"/>
+  <path class="dashed" d="M1000 291 L1000 320"/>
+  <text class="small" x="636" y="311" text-anchor="middle">可选</text>
+  <text class="small" x="1000" y="311" text-anchor="middle">可选</text>
+
+  <rect class="optional" x="468" y="326" width="336" height="120" rx="15"/>
+  <text class="heading" x="636" y="363" text-anchor="middle">L09 · Prompting / PEFT</text>
+  <text class="body" x="636" y="393" text-anchor="middle">按任务改变上下文或少量权重</text>
+  <text class="small" x="636" y="419" text-anchor="middle">不用适配、做 LoRA 或全量微调都可成立</text>
+
+  <rect class="optional" x="824" y="326" width="352" height="120" rx="15"/>
+  <text class="heading" x="1000" y="363" text-anchor="middle">L10 · RAG / Agent</text>
+  <text class="body" x="1000" y="393" text-anchor="middle">按需加入外部资料或工具</text>
+  <text class="small" x="1000" y="419" text-anchor="middle">可单独使用，也可与 PEFT 组合</text>
+
+  <!-- Optional routes affect inference; the direct model route remains valid -->
+  <path class="dashed" d="M804 385 L812 385 L812 262 L1047 262 L1047 254"/>
+  <path class="dashed" d="M1177 385 L1215 385 L1215 276 L1148 276 L1148 254"/>
+
+  <!-- Evaluation is a repeated loop across the whole system -->
+  <path class="guide" d="M459 249 L459 483"/>
+  <path class="guide" d="M872 249 L872 483"/>
+  <path class="guide" d="M636 447 L636 483"/>
+  <path class="guide" d="M1000 447 L1000 483"/>
+  <path class="guide" d="M1095 249 L1220 249 L1220 483"/>
+  <rect class="eval" x="48" y="492" width="1184" height="226" rx="18"/>
+  <text class="heading" x="640" y="528" text-anchor="middle">L11 · 评估不是最后一站，而是每个阶段都要走的反馈回路</text>
+  <text class="small" x="640" y="553" text-anchor="middle">检查预训练、指令遵循、适配效果、检索证据、推理质量和运行成本</text>
+
+  <rect class="soft" x="92" y="578" width="246" height="57" rx="12"/>
+  <text class="label" x="215" y="613" text-anchor="middle">测量：任务与指标</text>
+  <path class="line" d="M345 606 L415 606"/>
+  <rect class="soft" x="427" y="578" width="365" height="57" rx="12"/>
+  <text class="label" x="609" y="613" text-anchor="middle">诊断：错误、覆盖、偏差、延迟、费用</text>
+  <path class="line" d="M799 606 L869 606"/>
+  <rect class="soft" x="881" y="578" width="300" height="57" rx="12"/>
+  <text class="label" x="1031" y="613" text-anchor="middle">调整：数据、目标、模型、检索、提示</text>
+
+  <path class="dashed" d="M1031 641 C1031 687 215 687 215 644"/>
+  <text class="small" x="640" y="680" text-anchor="middle">进入下一轮再测量；按证据选择是否改动任一环节</text>
+</svg>

@@ -1,0 +1,37 @@
+---
+title: 基础工具：Python、张量与 PyTorch
+description: 从程序数据流和数组 shape 入手，学会读懂语言模型训练所需的 Python、NumPy 与 PyTorch 基础。
+tags:
+  - foundations
+  - python
+  - pytorch
+---
+
+学深度学习不需要先背完整本 Python 教材；需要的是能跟踪一批样本怎么从文字变成数字、张量、损失和梯度。本目录从你能看见的小数据出发，再逐步把同一条路线交给模型处理。
+
+## 建议顺序
+
+1. [[Python-Prerequisites|Python：变量、列表、字典、函数和调试]]。重点练习读数据流和追踪函数输入/输出。
+2. [[NumPy-and-Tensor-Shapes|NumPy 与张量：shape、索引、广播和矩阵乘法]]。每看一个公式，先给每一轴写出名字。
+3. [[PyTorch-Train-Step|PyTorch 训练一步：logits、损失、反向传播和更新]]。从单个预测扩展到 batch 和完整训练函数。
+4. [[../05-Reference/Debugging-Checklist|训练调试清单]] 与 [[../05-Reference/Tensor-Shape-Cheat-Sheet|shape 速查表]] 可在实现时反复打开。
+
+![文本经过编码、张量化、模型预测与损失计算，再通过梯度更新参数](assets/foundations-learning-loop.svg)
+
+*图 1. 这三篇基础讲义分别解释前半段的数据处理、张量计算和后半段的训练更新。*
+
+## 学习完后应能
+
+- 读懂 `input_ids` 是一批整数，而 `tokenizer` 决定文字如何变成这些整数。
+- 把 `[B,T,D]` 解释成批次、位置和特征，而不是只报出三个数字。
+- 检查 `[B,T,V]` logits 怎样与 `[B,T]` 的下一个 token 目标对齐。
+- 区分计算梯度的 `backward()` 与实际更新参数的 `optimizer.step()`。
+- 遇到错误时先报告出错张量的 shape、dtype 和 device，再改代码。
+
+## 你不必预先掌握
+
+先不要求会高级 Python 特性、复杂面向对象、微积分的严格证明或 GPU kernel 编程。页面会在需要时解释新符号和 API；如果手算 shape 仍会卡住，就回到张量页，不必因为某个库还不熟就停止学习整门课。
+
+## 与课程的衔接
+
+CS224N 的 Word2Vec、反向传播、RNN 和 Transformer 都依赖张量与损失的基础。CS336 A1 会把同一数据流连成 byte-level BPE、Transformer 语言模型和训练循环。进入课程页后，请同时打开 [[../05-Reference/Glossary|中英术语表]] 与 [[../05-Reference/Formula-Sheet|公式速查]]。

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">训练语料的数据处理和审计流程</title>
+  <desc id="desc">六个步骤组成循环式处理流程：记录原始来源、提取正文、评估语言质量和隐私、发现近重复候选、按目标混合并保存版本、在隔离评测集上验证后反查来源。</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6382a9"/></marker></defs>
+  <rect width="900" height="620" rx="28" fill="#f5f9ff"/>
+  <text x="38" y="44" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5" fill="#6684a8">DATA QUALITY IS A TRACEABLE PROCESS</text>
+  <g fill="none" stroke="#6684a8" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M425 135H475"/><path d="M680 170V205"/><path d="M475 275H425"/><path d="M220 310V345"/><path d="M425 415H475"/>
+  </g>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+    <g><rect x="35" y="65" width="390" height="105" rx="18" fill="#fff" stroke="#c3d5ea" stroke-width="2"/><circle cx="69" cy="100" r="17" fill="#e7f0ff"/><text x="69" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">1</text><text x="100" y="106" font-size="21" font-weight="700" fill="#193556">来源与原始记录</text><text x="62" y="144" font-size="16" fill="#536a84">URL · 抓取批次 · WARC / 元数据</text></g>
+    <g><rect x="475" y="65" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="509" cy="100" r="17" fill="#e7f0ff"/><text x="509" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">2</text><text x="540" y="106" font-size="21" font-weight="700" fill="#193556">抽取与规范化</text><text x="502" y="144" font-size="16" fill="#536a84">正文、标题、代码；抽取器版本</text></g>
+    <g><rect x="475" y="205" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="509" cy="240" r="17" fill="#e7f0ff"/><text x="509" y="246" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">3</text><text x="540" y="246" font-size="21" font-weight="700" fill="#193556">质量、语言与隐私</text><text x="502" y="284" font-size="16" fill="#536a84">分层抽样，记录误收、误删与动作</text></g>
+    <g><rect x="35" y="205" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="69" cy="240" r="17" fill="#e7f0ff"/><text x="69" y="246" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">4</text><text x="100" y="246" font-size="21" font-weight="700" fill="#193556">精确与近似去重</text><text x="62" y="284" font-size="16" fill="#536a84">候选召回后仍需阈值与抽样复核</text></g>
+    <g><rect x="35" y="345" width="390" height="105" rx="18" fill="#fff" stroke="#b6cce7" stroke-width="2"/><circle cx="69" cy="380" r="17" fill="#e7f0ff"/><text x="69" y="386" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">5</text><text x="100" y="386" font-size="21" font-weight="700" fill="#193556">混合、采样与版本</text><text x="62" y="424" font-size="16" fill="#536a84">来源权重、token 数与处理配置</text></g>
+    <g><rect x="475" y="345" width="390" height="105" rx="18" fill="#fff" stroke="#9bb9dd" stroke-width="2"/><circle cx="509" cy="380" r="17" fill="#dceaff"/><text x="509" y="386" text-anchor="middle" font-size="15" font-weight="700" fill="#205da8">6</text><text x="540" y="386" font-size="21" font-weight="700" fill="#193556">隔离验证与审计</text><text x="502" y="424" font-size="16" fill="#536a84">分领域评估；发现问题可回溯源头</text></g>
+  </g>
+  <path d="M670 450V495H220V450" fill="none" stroke="#93aac6" stroke-width="2.5" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+  <text x="445" y="534" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#315983">每一步保存数量、版本、理由与抽样证据</text>
+  <text x="445" y="566" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="15" fill="#647e9a">质量不仅看总量，也看误差、覆盖和来源是否适配目标</text>
+</svg>

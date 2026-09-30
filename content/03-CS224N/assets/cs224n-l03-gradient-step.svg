@@ -1,0 +1,48 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">逻辑回归的一次反向传播与 SGD 更新</title>
+  <desc id="desc">输入 x 等于 2、标签 y 等于 1、初始权重和偏置为 0。前向得到 logit 0、概率 0.5、损失 0.693；反向得到权重梯度负 1、偏置梯度负 0.5；学习率 0.1 后参数变为 0.1 和 0.05，概率升至约 0.562。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="#315f91"/></marker>
+    <style>
+      text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}
+      .title{font-size:24px;font-weight:700}.head{font-size:18px;font-weight:650}.value{font-size:21px;font-weight:700}.small{font-size:15px;fill:#52677e}
+      .box{fill:#fff;stroke:#91abc5;stroke-width:2}.blue{fill:#e5f0fb;stroke:#315f91;stroke-width:2}.gold{fill:#fff7e3;stroke:#b78a31;stroke-width:2}.arrow{fill:none;stroke:#315f91;stroke-width:3}
+    </style>
+  </defs>
+  <rect width="1200" height="430" rx="24" fill="#f7faff"/>
+  <text x="600" y="43" text-anchor="middle" class="title">一条样本如何推动模型往正确方向走</text>
+  <text x="600" y="73" text-anchor="middle" class="small">例子：x = 2，真实标签 y = 1，初始 w = 0、b = 0</text>
+
+  <g>
+    <rect class="box" x="34" y="112" width="155" height="103" rx="14"/>
+    <text x="111" y="146" text-anchor="middle" class="head">线性打分</text>
+    <text x="111" y="180" text-anchor="middle" class="value">z = wx + b = 0</text>
+
+    <rect class="blue" x="248" y="112" width="155" height="103" rx="14"/>
+    <text x="325" y="146" text-anchor="middle" class="head">Sigmoid 概率</text>
+    <text x="325" y="180" text-anchor="middle" class="value">a = 0.500</text>
+
+    <rect class="box" x="462" y="112" width="155" height="103" rx="14"/>
+    <text x="539" y="146" text-anchor="middle" class="head">二元交叉熵</text>
+    <text x="539" y="180" text-anchor="middle" class="value">L = 0.693</text>
+
+    <rect class="gold" x="676" y="112" width="207" height="103" rx="14"/>
+    <text x="779" y="146" text-anchor="middle" class="head">反向传播求梯度</text>
+    <text x="779" y="176" text-anchor="middle" class="value">∂L/∂w = −1</text>
+    <text x="779" y="199" text-anchor="middle" class="small">∂L/∂b = −0.5</text>
+
+    <rect class="blue" x="943" y="112" width="223" height="103" rx="14"/>
+    <text x="1054" y="146" text-anchor="middle" class="head">SGD 更新后</text>
+    <text x="1054" y="176" text-anchor="middle" class="value">w = 0.10，b = 0.05</text>
+    <text x="1054" y="199" text-anchor="middle" class="small">新概率约为 0.562</text>
+  </g>
+  <path class="arrow" marker-end="url(#arrow)" d="M189 164h50"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M403 164h50"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M617 164h50"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M883 164h53"/>
+
+  <rect x="91" y="274" width="1018" height="99" rx="16" fill="#fff" stroke="#d9e4ef" stroke-width="2"/>
+  <text x="600" y="309" text-anchor="middle" class="head">更新规则：参数 ← 参数 − 学习率 × 梯度</text>
+  <text x="600" y="344" text-anchor="middle" class="value">w ← 0 − 0.1 × (−1) = 0.10　　b ← 0 − 0.1 × (−0.5) = 0.05</text>
+  <text x="600" y="398" text-anchor="middle" class="small">反向传播只算梯度；真正修改 w 和 b 的是优化器（这里用普通 SGD 示意）。</text>
+</svg>

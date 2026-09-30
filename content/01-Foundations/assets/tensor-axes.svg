@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 390" role="img" aria-labelledby="title desc">
+  <title id="title">语言模型张量的 batch、token 和 feature 三个轴</title>
+  <desc id="desc">左边的二维 token id 表有 batch 行和 token 列；中间一个 token id 查到 D 维向量；右边把多个序列位置的向量叠成 B 乘 T 乘 D 的张量。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1L10 6L1 11" fill="none" stroke="#4779ad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #263d55; }
+      .title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 24px; font-weight: 700; }
+      .head { font-size: 17px; font-weight: 700; }
+      .small { font-size: 14px; fill: #61788f; }
+      .num { font-family: "Cascadia Code", Consolas, monospace; font-size: 17px; }
+      .axis { font-size: 14px; font-weight: 700; fill: #315f91; }
+    </style>
+  </defs>
+  <rect width="1120" height="390" rx="20" fill="#f7faff"/>
+  <text x="42" y="48" class="title">一段 batch 里的 token，怎样变成一叠向量？</text>
+
+  <text x="66" y="97" class="head">输入 id：shape [B,T]</text>
+  <text x="66" y="122" class="small">B=2 条样本；T=3 个位置</text>
+  <rect x="94" y="146" width="245" height="152" rx="10" fill="#ffffff" stroke="#afc7df" stroke-width="2"/>
+  <path d="M175 146V298M257 146V298M94 196H339M94 247H339" stroke="#d5e1ed" stroke-width="2"/>
+  <rect x="177" y="198" width="78" height="47" fill="#dceafb"/>
+  <text x="127" y="178" class="small">位置 0</text><text x="209" y="178" class="small">位置 1</text><text x="283" y="178" class="small">位置 2</text>
+  <text x="117" y="229" class="num">0</text><text x="204" y="229" class="num">2</text><text x="286" y="229" class="num">1</text>
+  <text x="117" y="280" class="num">3</text><text x="204" y="280" class="num">1</text><text x="286" y="280" class="num">0</text>
+  <text x="53" y="222" class="axis" transform="rotate(-90 53 222)">batch 轴 B</text>
+  <text x="171" y="329" class="axis">token 轴 T（保留顺序）</text>
+
+  <path d="M360 220H430" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="369" y="198" class="small">embedding</text>
+
+  <text x="464" y="97" class="head">单个 id 对应一个 D 维向量</text>
+  <text x="464" y="122" class="small">例如 id=2 查表，取 embedding 表的一行</text>
+  <rect x="485" y="157" width="74" height="142" rx="8" fill="#eaf2fb" stroke="#9bb9d7" stroke-width="2"/>
+  <path d="M485 192H559M485 227H559M485 263H559" stroke="#c8d9e9" stroke-width="2"/>
+  <text x="508" y="181" class="small">d₀</text><text x="508" y="217" class="small">d₁</text><text x="508" y="253" class="small">d₂</text><text x="508" y="286" class="small">…</text>
+  <text x="476" y="329" class="axis">特征轴 D</text>
+
+  <path d="M575 220H644" stroke="#4779ad" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="582" y="198" class="small">每个位置都查一次</text>
+
+  <text x="678" y="97" class="head">模型输入：shape [B,T,D]</text>
+  <text x="678" y="122" class="small">2 个样本 × 3 个位置 × 每个 D 维特征</text>
+  <g transform="translate(703 158)">
+    <rect x="0" y="0" width="252" height="26" rx="6" fill="#dceafb" stroke="#9bb9d7"/>
+    <rect x="0" y="31" width="252" height="26" rx="6" fill="#dceafb" stroke="#9bb9d7"/>
+    <rect x="0" y="62" width="252" height="26" rx="6" fill="#dceafb" stroke="#9bb9d7"/>
+    <rect x="0" y="102" width="252" height="26" rx="6" fill="#eaf2fb" stroke="#afc7df"/>
+    <rect x="0" y="133" width="252" height="26" rx="6" fill="#eaf2fb" stroke="#afc7df"/>
+    <rect x="0" y="164" width="252" height="26" rx="6" fill="#eaf2fb" stroke="#afc7df"/>
+    <text x="16" y="19" class="num">[v₀, v₁, v₂, …]</text>
+    <text x="16" y="50" class="num">[v₀, v₁, v₂, …]</text>
+    <text x="16" y="81" class="num">[v₀, v₁, v₂, …]</text>
+    <text x="16" y="121" class="num">[v₀, v₁, v₂, …]</text>
+    <text x="16" y="152" class="num">[v₀, v₁, v₂, …]</text>
+    <text x="16" y="183" class="num">[v₀, v₁, v₂, …]</text>
+  </g>
+  <text x="975" y="176" class="small">样本 1 · 位置 t=0</text>
+  <text x="975" y="207" class="small">样本 1 · 位置 t=1</text>
+  <text x="975" y="238" class="small">样本 1 · 位置 t=2</text>
+  <text x="975" y="278" class="small">样本 2 · 位置 t=0</text>
+  <text x="975" y="309" class="small">样本 2 · 位置 t=1</text>
+  <text x="975" y="340" class="small">样本 2 · 位置 t=2</text>
+  <text x="704" y="367" class="small">id 是索引；向量的每个分量是模型从训练数据中学到的数值。</text>
+</svg>

@@ -32,6 +32,7 @@ tags:
 | 《动手学深度学习》 | [中文版在线教材](https://zh-v2.d2l.ai/) · [源码仓库](https://github.com/d2l-ai/d2l-zh) · [源码仓库 LICENSE](https://github.com/d2l-ai/d2l-zh/blob/master/LICENSE) | 源码仓库的 LICENSE 是 Apache 2.0；这不能单独确定书籍正文、插图或 PDF 的许可，使用这些内容时应查看教材网站和对应文件声明。 |
 | Stanford CS224N | [官方课程主页](https://web.stanford.edu/class/cs224n/) | 课程文件的再发布授权需以课程页和各文件声明为准；本站只链接课程主页。 |
 | Stanford CS336 | [官方课程主页](https://cs336.stanford.edu/) | 课程文件的再发布授权需以课程页和各文件声明为准；本站只链接课程主页。 |
+| FRS2003 Hands-on LLM | [固定上游版本](https://github.com/FRS2003/hands-on-llm/tree/a828c96e683270a784d5d57e8aed06d3c9f9a5d3) · [MIT License](https://github.com/FRS2003/hands-on-llm/blob/a828c96e683270a784d5d57e8aed06d3c9f9a5d3/LICENSE) | 根许可证覆盖仓库作者文档；个别数据集和模型卡可能单独授权。 |
 
 ## 许可状态与本站处理
 
@@ -42,6 +43,7 @@ tags:
 | D2L | 源码仓库 LICENSE 为 Apache 2.0；书籍正文、图示和 PDF 的权利应按教材站声明另行确认。 | 只链接在线教材和源仓库，不把代码仓库许可证套用于所有书籍材料。 |
 | Python、NumPy、PyTorch 官方文档 | 以各自官方站点和许可页为准。 | 使用官方链接；不镜像页面。 |
 | Stanford CS224N、CS336 | 课程文件具体权利声明依课程页和文件。 | 使用官方课程链接；不重新发布讲义和作业 PDF。 |
+| FRS2003 Hands-on LLM | 仓库主体为 MIT；ShareAI 数据单独为 Apache-2.0；Alpaca 中文训练样本无法固定其实际来源；部分模型卡标记 `license: other`。 | 仅按 [[../06-Hands-on-LLM/index|镜像说明]]发布 MIT 中文讲义、Word、作者图表和实验记录；数据样本和非 MIT 模型卡只链接上游，不复制。 |
 | 其他第三方快照或笔记 | 来源或许可不清楚时，不能据此认定可再发布。 | 不纳入本站内容。 |
 
 这些说明是来源整理，不是法律意见。离线资料副本存放在 Quartz 发布树之外，读者需从自己的私人工作区打开；本站不提供这些副本的链接或下载。本站原创解释不代表 Stanford 官方翻译，也不能替代原课程内容。
@@ -51,6 +53,6 @@ tags:
 - [[Python-Prerequisites|Python 前置能力]]
 - [[NumPy-and-Tensor-Shapes|NumPy 与张量形状]]
 - [[PyTorch-Train-Step|PyTorch 训练一步]]
-- [[Glossary|术语表]]
+- [术语表](https://blog.linhk.top/Language-Model-Systems-Atlas/05-reference/glossary)
 - [[Tensor-Shape-Cheat-Sheet|张量形状速查表]]
 - [[Debugging-Checklist|调试清单]]

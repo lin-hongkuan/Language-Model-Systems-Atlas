@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" role="img" aria-labelledby="title desc">
+  <title id="title">在近似固定计算预算下安排模型与数据的对照实验</title>
+  <desc id="desc">概念图显示在近似固定的 N 乘 D 预算下，参数更多时对应可处理 token 较少。比较同一预算曲线上的候选配置，用独立验证损失选择范围内的较好配置。曲线和点均为示意。</desc>
+  <defs><linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fbfdff"/><stop offset="1" stop-color="#edf4ff"/></linearGradient></defs>
+  <rect width="820" height="560" rx="28" fill="url(#panel)"/>
+  <text x="36" y="44" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5" fill="#6684a8">ISO-FLOPS DESIGN · ILLUSTRATION</text>
+  <g stroke="#9fb6d1" stroke-width="2" fill="none"><path d="M120 442H700"/><path d="M120 442V104"/></g>
+  <g stroke="#d9e5f3" stroke-width="1"><path d="M120 357H700"/><path d="M120 272H700"/><path d="M120 187H700"/><path d="M265 104V442"/><path d="M410 104V442"/><path d="M555 104V442"/></g>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" fill="#526c89" font-size="16">
+    <text x="410" y="489" text-anchor="middle" font-size="18" font-weight="700" fill="#294b74">模型参数量 N 增大 →</text>
+    <text x="54" y="274" text-anchor="middle" font-size="17" font-weight="700" fill="#294b74" transform="rotate(-90 54 274)">训练 token 数 D 增大 →</text>
+    <text x="130" y="470">少</text><text x="684" y="470">多</text><text x="91" y="438">少</text><text x="91" y="122">多</text>
+  </g>
+  <path d="M180 139C250 201 321 264 405 317S572 391 650 420" fill="none" stroke="#4f7fb8" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#2b67a8" stroke-width="4"><circle cx="240" cy="195" r="10"/><circle cx="405" cy="317" r="10"/><circle cx="570" cy="388" r="10"/></g>
+  <g font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" fill="#244b79" font-size="15" font-weight="700"><text x="191" y="182">小 N · 多 D</text><text x="362" y="296">中间配置</text><text x="519" y="366">大 N · 少 D</text></g>
+  <rect x="470" y="78" width="300" height="72" rx="16" fill="#fff" stroke="#c5d7ed" stroke-width="2"/>
+  <text x="620" y="107" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#193556">近似固定预算</text>
+  <text x="620" y="132" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="15" fill="#536a84">C ≈ 6ND，因此 N ↑ 时 D ↓</text>
+  <text x="410" y="530" text-anchor="middle" font-family="Inter, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="15" fill="#7186a0">每个点都要完整训练并在同一验证集比较；不是实测曲线或最优预测</text>
+</svg>

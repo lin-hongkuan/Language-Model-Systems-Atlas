@@ -66,4 +66,4 @@ def describe(name, tensor):
     )
 ~~~
 
-至少检查输入、embedding 输出、每个 Transformer block 的输入/输出、logits 和目标。相关概念见 [[NumPy-and-Tensor-Shapes|NumPy 与张量形状]]，缩写见 [[Glossary|术语表]]。
+至少检查输入、embedding 输出、每个 Transformer block 的输入/输出、logits 和目标。相关概念见 [[NumPy-and-Tensor-Shapes|NumPy 与张量形状]]，缩写见 [术语表](https://blog.linhk.top/Language-Model-Systems-Atlas/05-reference/glossary)。

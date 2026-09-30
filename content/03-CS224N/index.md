@@ -11,6 +11,8 @@ tags:
 
 读本组内容不需要看视频。每页先讲问题和直觉，再写公式、张量形状和一个小例子；文末有容易混淆的地方与自测题。官方课件用于核对课程范围，页面文字是独立编写的中文解释，不是 Stanford 幻灯片翻译。
 
+如果 Python 或 PyTorch 还不熟，先按 [[../01-Foundations/Python-Prerequisites|Python 基础]] → [[../01-Foundations/NumPy-and-Tensor-Shapes|NumPy 与张量形状]] → [[../01-Foundations/PyTorch-Train-Step|PyTorch 训练一步]] 阅读基础讲义，再进入 CS224N。开始时不要求会完整的 Python 语法或微积分证明；能读懂简单函数、看出向量和矩阵的 shape，并知道张量、损失和梯度大致是什么，就可以从 L01 开始。遇到代码或形状不熟，再回到对应基础页补齐。
+
 ## 页面导航
 
 1. [[L01-课程导论与NLP演进|L01：课程导论与 NLP 演进]]：NLP 方法史与全课程地图。

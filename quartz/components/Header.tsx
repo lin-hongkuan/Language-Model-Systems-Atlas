@@ -8,6 +8,7 @@ const Header: QuartzComponent = ({ children, fileData }: QuartzComponentProps) =
     ["学习地图", "02-Learning-Map/index" as FullSlug],
     ["CS224N", "03-CS224N/index" as FullSlug],
     ["CS336", "04-CS336/index" as FullSlug],
+    ["开源讲义", "06-Hands-on-LLM/index" as FullSlug],
     ["参考", "05-Reference/Glossary" as FullSlug],
   ]
   return (
