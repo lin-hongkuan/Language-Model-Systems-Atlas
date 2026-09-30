@@ -15,7 +15,7 @@ npx quartz build --serve
 
 ## 私人离线资料
 
-维护者的个人离线副本保存在仓库外部的本机资料目录，不属于公开网站源码。仓库内预留的 `quartz/static/private-materials` 和 `content/98-Local-Study-Cache` 路径由 Git 忽略，避免误收录私人文件。第三方 CS224N 翻译笔记和 Stanford 课件仅用于维护者个人学习，不会进入 GitHub Pages。
+维护者的个人离线资料与预览维护工具统一保存在工作区外的 `Language-Model-Systems-Atlas-Archive/`，不属于网站源码，也不会进入 GitHub Pages。公开仓库仅保留 `.gitignore` 和 Quartz 忽略规则作为防漏保护。第三方 CS224N 笔记只收录有明确 CC BY-NC-SA 4.0 授权的 2024 版文本；Stanford 原始课件截图已移除，课件仍链接回官方来源。
 
 ## GitHub Pages
 

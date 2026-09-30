@@ -14,7 +14,7 @@ tags:
 - [上游 README：内容全景、能力索引和实验结果](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/readme)
 - [学习路径：从原理到训练、框架、Agent 与 RAG](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/learning_path)
 - [原始目录与全部讲义列表](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/)
-- [上游 MIT License 全文](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license.txt)
+- [上游 MIT License 全文](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license)
 
 原始目录保留在 [镜像目录](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/) 内。目录中的图片、`.docx` 附件、CSV 实验表和文本记录与相邻讲义保持原有层级；从模块导览和讲义页可以直接打开。遇到代码、配置或数据链接时，会跳到上游固定版本，让示例保持可追溯。
 
@@ -34,6 +34,6 @@ tags:
 
 出于单独许可和材料追溯边界，本镜像**不打包训练数据样本 JSON/JSONL**。目录中的 `dataset_info.json` 仅说明训练数据字段映射，不包含样本；数据样本本身保留在上游链接。其中 ShareAI 偏好样本在上游标注为 Apache-2.0，Alpaca 中文样本的实际来源未固定。三个标记 `license: other` 的模型卡也只从上游查看，不复制进本站。上游明确排除的 Stanford slides、readings、assignments 以及私有医学语料均未收录。
 
-上游版本：[`a828c96e683270a784d5d57e8aed06d3c9f9a5d3`](https://github.com/FRS2003/hands-on-llm/tree/a828c96e683270a784d5d57e8aed06d3c9f9a5d3)。更新上游以后，可按新版本重新同步此目录。本站 `source/LICENSE.txt` 保留完整 MIT 文本及版权/免责声明；引用本模块时请同时注明上游仓库和作者。
+上游版本：[`a828c96e683270a784d5d57e8aed06d3c9f9a5d3`](https://github.com/FRS2003/hands-on-llm/tree/a828c96e683270a784d5d57e8aed06d3c9f9a5d3)。更新上游以后，可按新版本重新同步此目录。本站 `source/LICENSE` 保留完整 MIT 文本及版权/免责声明；引用本模块时请同时注明上游仓库和作者。
 
 为遵守本站不显示学习时长的要求，上游学习路径中的周次安排表在本地网页镜像中略去，其余路线说明保留。

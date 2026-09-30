@@ -194,6 +194,8 @@ out = E(ids)
 
 </details>
 
+继续顺序：[[PyTorch-Core-Practice|PyTorch Tensor、autograd 与 nn.Module 动手课]] → [[PyTorch-Train-Step|PyTorch 训练一步]]。做完后用 [[Tiny-Next-Token-Project|小型 next-token 项目]] 检验自己能否把 shape 与损失连起来。
+
 ## 参考资料
 
 - [NumPy Quickstart（官方）](https://numpy.org/doc/stable/user/quickstart.html)

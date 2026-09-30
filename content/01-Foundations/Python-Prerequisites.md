@@ -8,6 +8,8 @@ tags:
 
 这页不是 Python 语法大全。目标是读懂课程代码里的数据怎样流动：文字先变成 token，再变成整数 id，最后交给张量和模型。如果一个小函数能解释清楚输入、输出和中间状态，你就已经有了开始读深度学习代码的抓手。
 
+开始运行本站示例前，先完成 [[Python-Environment|Python 环境与运行脚本]]。本页语法之后可用 examples/python_basics.py 自查，再沿 [[PyTorch-Core-Practice|PyTorch 核心动手课]]、[[Dataset-and-DataLoader|数据集与批处理]]、[[Tiny-Next-Token-Project|next-token 训练项目]] 连成完整实操路径。
+
 ## 先看完整的小例子
 
 假设我们暂时用空格把句子切开，并给每个词安排一个编号：

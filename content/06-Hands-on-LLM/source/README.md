@@ -103,4 +103,4 @@ hands-on-llm/
 
 ## License
 
-[MIT](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license.txt)
+[MIT](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license)

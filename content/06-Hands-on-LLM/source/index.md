@@ -24,6 +24,6 @@ tags:
 - 原始 `.docx` 文件和 CSV/TXT/log 实验记录留在各自模块的原路径，可从讲义中的附件链接下载。
 - 本站收录了仓库中讲义引用的 13 处本地图片；DPO/GRPO、GQA/MQA 和训练曲线等图片均沿用作者图表。
 - 数据集样本、脚本和模型配置保留在 [上游仓库](https://github.com/FRS2003/hands-on-llm/tree/a828c96e683270a784d5d57e8aed06d3c9f9a5d3)，本镜像不重打包代码与训练样本。
-- 完整授权文本：[MIT License](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license.txt)。
+- 完整授权文本：[MIT License](https://blog.linhk.top/Language-Model-Systems-Atlas/06-hands-on-llm/source/license)。
 
 本目录有 50 篇获 MIT 许可的中文 Markdown 教材、27 份配套 Word 文档、10 张作者实验图表，以及仓库自带的记录文件。三个 `license: other` 模型卡没有被镜像；README 和模块页面中的来源说明保留，点击后可在上游查看。

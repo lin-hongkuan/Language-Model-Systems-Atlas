@@ -41,7 +41,10 @@ jobs:
           test ! -e public/static/private-materials
           test ! -e public/98-Local-Study-Cache
           test ! -e public/98-local-study-cache
-          test -f public/06-hands-on-llm/source/license.txt
+          test -f public/06-hands-on-llm/source/license
+          test -f public/03-cs224n/2024-cc-by-nc-sa-4.0/license
+          test "$(find public/03-cs224n/2024-cc-by-nc-sa-4.0/pdf -maxdepth 1 -type f -name '*.pdf' | wc -l)" -eq 14
+          test "$(find public/03-cs224n/2024-cc-by-nc-sa-4.0/tex -maxdepth 1 -type f -name '*.tex' | wc -l)" -eq 14
           for dataset in \
             public/06-hands-on-llm/source/03-peft-framework/experiments/align_lab/data/pref_dpo_train.json \
             public/06-hands-on-llm/source/03-peft-framework/experiments/align_lab/data/pref_dpo_eval.json \

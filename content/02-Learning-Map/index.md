@@ -8,6 +8,8 @@ tags:
 
 这张图按知识依赖排列，而不是按日历排课。遇到数学不熟的概念，先回到基础页；开始写模型时，再沿 CS336 A1 的实现顺序推进。
 
+如果你希望按日历推进，请打开 [[30-Day-Plan|30 天学习路线]]。它每天安排 2 小时，以中文讲义、手算与编程练习完成 Python/PyTorch 前置、CS224N L01–L14、CS336 A1–A5 和 Hands-on LLM 的依赖衔接。
+
 ## 主题依赖
 
 ![知识从 Python、张量和梯度，逐步连接到词向量、序列模型、Transformer、训练与评估的主题依赖图](assets/learning-dependency.svg)

@@ -9,7 +9,6 @@ tsconfig.tsbuildinfo
 private/
 content/98-Local-Study-Cache/
 quartz/static/private-materials/
-scripts/
 .codex-staging/
 .replit
 replit.nix

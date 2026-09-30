@@ -276,13 +276,31 @@ body[data-slug^="06-hands-on-llm/source/"] .page-header .article-title {
 
 .page article mjx-container.MathJax[display="true"] {
   display: block;
+  width: 100%;
+  box-sizing: border-box;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
+.page article mjx-container.MathJax:not([display="true"]) {
+  max-width: 100%;
+}
+
+.study-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.study-table-scroll table {
+  width: max-content;
+  max-width: none;
+}
+
 .page article mjx-container.MathJax[display="true"] > svg {
   display: block;
+  max-width: 100%;
   margin-inline: auto;
 }
 
@@ -492,6 +510,15 @@ body[data-slug^="06-hands-on-llm/source/"] .page-header .article-title {
 }
 
 @media (max-width: 520px) {
+  .page .center > article {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .page .center > article :is(h1, h2, h3, h4, p, li, a) {
+    overflow-wrap: anywhere;
+  }
+
   .atlas-nav {
     flex-wrap: wrap;
     overflow-x: visible;

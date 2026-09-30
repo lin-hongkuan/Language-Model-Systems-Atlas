@@ -13,6 +13,10 @@ tags:
 
 如果 Python 或 PyTorch 还不熟，先按 [[../01-Foundations/Python-Prerequisites|Python 基础]] → [[../01-Foundations/NumPy-and-Tensor-Shapes|NumPy 与张量形状]] → [[../01-Foundations/PyTorch-Train-Step|PyTorch 训练一步]] 阅读基础讲义，再进入 CS224N。开始时不要求会完整的 Python 语法或微积分证明；能读懂简单函数、看出向量和矩阵的 shape，并知道张量、损失和梯度大致是什么，就可以从 L01 开始。遇到代码或形状不熟，再回到对应基础页补齐。
 
+> **配套入口：**先看 [[中文讲义与官方材料索引|中文讲义与官方材料索引]]，分清不同年份的材料；学完一讲后可用 [[CS224N-练习与答案|练习与答案]] 检查理解。
+
+> **获许可的旧版补充：**需要下载完整的 2024 年中文笔记时，打开 [2024 版 PDF 与 TeX 讲义集](https://blog.linhk.top/Language-Model-Systems-Atlas/03-cs224n/2024-cc-by-nc-sa-4.0/)。它遵循 CC BY-NC-SA 4.0，已移除 Stanford 课件截图；课程内容和讲次顺序与下方 Winter 2026 主线不同。
+
 ## 页面导航
 
 1. [[L01-课程导论与NLP演进|L01：课程导论与 NLP 演进]]：NLP 方法史与全课程地图。

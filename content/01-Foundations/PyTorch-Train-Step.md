@@ -187,6 +187,8 @@ with torch.inference_mode():
 
 </details>
 
+完成本页后，先运行 [[Tiny-Next-Token-Project|小型 next-token 训练项目]]；随后去 [[../04-CS336/a1-basics|CS336 A1 Basics]] 顺着 tokenizer、Transformer 和训练循环追踪更完整的数据流。
+
 ## 官方文档与后续阅读
 
 - [PyTorch Quickstart](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)
