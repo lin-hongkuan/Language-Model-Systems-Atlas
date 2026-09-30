@@ -492,6 +492,15 @@ body[data-slug^="06-hands-on-llm/source/"] .page-header .article-title {
 }
 
 @media (max-width: 520px) {
+  .atlas-nav {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .atlas-nav a {
+    padding-inline: 0.45rem;
+  }
+
   .atlas-card-grid {
     grid-template-columns: 1fr;
     gap: 0.65rem;
