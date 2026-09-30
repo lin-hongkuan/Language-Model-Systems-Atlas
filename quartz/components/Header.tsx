@@ -5,11 +5,11 @@ const Header: QuartzComponent = ({ children, fileData }: QuartzComponentProps) =
   const currentSlug = fileData.slug?.replace(/\/index$/, "").toLowerCase() ?? ""
   const links: [string, FullSlug][] = [
     ["Atlas", "index" as FullSlug],
-    ["学习地图", "02-Learning-Map/index" as FullSlug],
-    ["CS224N", "03-CS224N/index" as FullSlug],
-    ["CS336", "04-CS336/index" as FullSlug],
-    ["开源讲义", "06-Hands-on-LLM/index" as FullSlug],
-    ["参考", "05-Reference/Glossary" as FullSlug],
+    ["学习地图", "02-learning-map/index" as FullSlug],
+    ["CS224N", "03-cs224n/index" as FullSlug],
+    ["CS336", "04-cs336/index" as FullSlug],
+    ["开源讲义", "06-hands-on-llm/index" as FullSlug],
+    ["参考", "05-reference/glossary" as FullSlug],
   ]
   return (
     <header class="atlas-header">
