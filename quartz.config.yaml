@@ -1,6 +1,6 @@
 configuration:
-  pageTitle: Language Model Systems Atlas · 语言模型系统图谱
-  pageTitleSuffix: ' | 模型系统图谱'
+  pageTitle: Language Model Systems Atlas
+  pageTitleSuffix: ' | 语言模型系统图谱'
   enableSPA: true
   enablePopovers: true
   locale: zh-CN

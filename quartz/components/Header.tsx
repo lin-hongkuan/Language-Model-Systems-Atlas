@@ -2,6 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { FullSlug, resolveRelative } from "../util/path"
 
 const Header: QuartzComponent = ({ children, fileData }: QuartzComponentProps) => {
+  const currentSlug = fileData.slug?.replace(/\/index$/, "").toLowerCase() ?? ""
   const links: [string, FullSlug][] = [
     ["Atlas", "index" as FullSlug],
     ["学习地图", "02-Learning-Map/index" as FullSlug],
@@ -13,9 +14,19 @@ const Header: QuartzComponent = ({ children, fileData }: QuartzComponentProps) =
     <header class="atlas-header">
       <div class="atlas-header-tools">{children}</div>
       <nav class="atlas-nav" aria-label="Atlas 导航">
-        {links.map(([label, slug]) => (
-          <a href={resolveRelative(fileData.slug!, slug)}>{label}</a>
-        ))}
+        {links.map(([label, slug]) => {
+          const targetSlug = slug.replace(/\/index$/, "").toLowerCase()
+          const active = currentSlug === targetSlug || currentSlug.startsWith(`${targetSlug}/`)
+          return (
+            <a
+              href={resolveRelative(fileData.slug!, slug)}
+              class={active ? "active" : undefined}
+              aria-current={active ? "page" : undefined}
+            >
+              {label}
+            </a>
+          )
+        })}
       </nav>
     </header>
   )
