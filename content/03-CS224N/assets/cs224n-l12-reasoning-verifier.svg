@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">推理时采样与验证器筛选</title>
+  <desc id="desc">问题进入语言模型，在额外推理计算预算内产生多条候选解答；外部验证器或一致性聚合检查候选，最后选择并返回答案。采样增多不自动保证正确。</desc>
+  <defs>
+    <marker id="arrow-l12" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.box{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .primary{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .candidate{fill:#f2f7fd;stroke:#99b6d7;stroke-width:1.8}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l12)}
+      .branch{stroke:#82a9d8;stroke-width:2.5;fill:none;marker-end:url(#arrow-l12)}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="420" rx="22"/>
+  <text class="title" x="54" y="54">推理时计算：生成候选，再用独立信号筛选</text>
+  <rect class="box" x="45" y="165" width="190" height="84" rx="15"/>
+  <text class="label" x="140" y="199" text-anchor="middle">问题 / 输入</text>
+  <text class="small" x="140" y="225" text-anchor="middle">明确任务与约束</text>
+  <rect class="primary" x="305" y="165" width="215" height="84" rx="15"/>
+  <text class="label" x="412" y="199" text-anchor="middle">模型采样 / 搜索</text>
+  <text class="small" x="412" y="225" text-anchor="middle">增加测试时计算</text>
+  <rect class="candidate" x="600" y="90" width="210" height="60" rx="13"/>
+  <text class="label" x="705" y="127" text-anchor="middle">候选 A · 路径 1</text>
+  <rect class="candidate" x="600" y="176" width="210" height="60" rx="13"/>
+  <text class="label" x="705" y="213" text-anchor="middle">候选 B · 路径 2</text>
+  <rect class="candidate" x="600" y="262" width="210" height="60" rx="13"/>
+  <text class="label" x="705" y="299" text-anchor="middle">候选 C · 路径 3</text>
+  <rect class="primary" x="895" y="165" width="205" height="84" rx="15"/>
+  <text class="label" x="997" y="199" text-anchor="middle">验证器 / 聚合</text>
+  <text class="small" x="997" y="225" text-anchor="middle">测试 · 规则 · 投票</text>
+  <rect class="box" x="1140" y="165" width="105" height="84" rx="15"/>
+  <text class="label" x="1192" y="199" text-anchor="middle">答案</text>
+  <text class="small" x="1192" y="225" text-anchor="middle">附核验</text>
+  <path class="line" d="M236 207 H297"/>
+  <path class="branch" d="M521 207 C560 207 560 120 592 120"/>
+  <path class="branch" d="M521 207 H592"/>
+  <path class="branch" d="M521 207 C560 207 560 292 592 292"/>
+  <path class="branch" d="M811 120 C855 120 854 186 886 186"/>
+  <path class="branch" d="M811 206 H886"/>
+  <path class="branch" d="M811 292 C855 292 854 228 886 228"/>
+  <path class="line" d="M1101 207 H1132"/>
+  <rect x="45" y="355" width="1200" height="38" rx="11" fill="#eaf3ff"/>
+  <text class="small" x="645" y="380" text-anchor="middle">更多候选只增加机会；若候选同错或验证器有漏洞，输出仍可能错误。</text>
+</svg>

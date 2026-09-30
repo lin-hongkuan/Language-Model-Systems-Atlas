@@ -1,22 +1,24 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { FullSlug, resolveRelative } from "../util/path"
 
-const Header: QuartzComponent = ({ children }: QuartzComponentProps) => {
-  return children.length > 0 ? <header>{children}</header> : null
+const Header: QuartzComponent = ({ children, fileData }: QuartzComponentProps) => {
+  const links: [string, FullSlug][] = [
+    ["Atlas", "index" as FullSlug],
+    ["学习地图", "02-Learning-Map/index" as FullSlug],
+    ["CS224N", "03-CS224N/index" as FullSlug],
+    ["CS336", "04-CS336/index" as FullSlug],
+    ["参考", "05-Reference/Glossary" as FullSlug],
+  ]
+  return (
+    <header class="atlas-header">
+      <div class="atlas-header-tools">{children}</div>
+      <nav class="atlas-nav" aria-label="Atlas 导航">
+        {links.map(([label, slug]) => (
+          <a href={resolveRelative(fileData.slug!, slug)}>{label}</a>
+        ))}
+      </nav>
+    </header>
+  )
 }
-
-Header.css = `
-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 2rem 0;
-  gap: 1.5rem;
-}
-
-header h1 {
-  margin: 0;
-  flex: auto;
-}
-`
 
 export default (() => Header) satisfies QuartzComponentConstructor

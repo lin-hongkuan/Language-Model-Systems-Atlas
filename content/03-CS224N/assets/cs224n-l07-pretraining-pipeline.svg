@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" role="img" aria-labelledby="title desc">
+  <title id="title">预训练数据与目标流程</title>
+  <desc id="desc">原始语料经过数据治理与分词，按自监督目标训练语言模型，最后用留出评估检查并用于下游任务。</desc>
+  <defs>
+    <marker id="arrow-l07" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.card{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .head{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 19px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .num{font:700 15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#fff}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l07)}
+      .foot{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#355575}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="380" rx="22"/>
+  <text class="title" x="54" y="54">从文本到可评估的预训练模型</text>
+  <g>
+    <rect class="card" x="44" y="105" width="170" height="162" rx="16"/>
+    <circle cx="69" cy="132" r="15" fill="#3977c3"/><text class="num" x="69" y="137" text-anchor="middle">1</text>
+    <text class="label" x="129" y="171" text-anchor="middle">原始语料</text>
+    <text class="small" x="129" y="202" text-anchor="middle">网页 · 书籍</text>
+    <text class="small" x="129" y="225" text-anchor="middle">对话 · 代码</text>
+
+    <rect class="card" x="250" y="105" width="170" height="162" rx="16"/>
+    <circle cx="275" cy="132" r="15" fill="#3977c3"/><text class="num" x="275" y="137" text-anchor="middle">2</text>
+    <text class="label" x="335" y="171" text-anchor="middle">数据治理</text>
+    <text class="small" x="335" y="202" text-anchor="middle">质量筛选 · 去重</text>
+    <text class="small" x="335" y="225" text-anchor="middle">隐私与许可检查</text>
+
+    <rect class="card" x="456" y="105" width="170" height="162" rx="16"/>
+    <circle cx="481" cy="132" r="15" fill="#3977c3"/><text class="num" x="481" y="137" text-anchor="middle">3</text>
+    <text class="label" x="541" y="171" text-anchor="middle">Tokenizer</text>
+    <text class="small" x="541" y="202" text-anchor="middle">切成 token ID</text>
+    <text class="small" x="541" y="225" text-anchor="middle">控制序列长度</text>
+
+    <rect class="card" x="662" y="105" width="170" height="162" rx="16"/>
+    <circle cx="687" cy="132" r="15" fill="#3977c3"/><text class="num" x="687" y="137" text-anchor="middle">4</text>
+    <text class="label" x="747" y="171" text-anchor="middle">自监督目标</text>
+    <text class="small" x="747" y="202" text-anchor="middle">因果预测 · 掩码</text>
+    <text class="small" x="747" y="225" text-anchor="middle">或片段重建</text>
+
+    <rect class="card" x="868" y="105" width="170" height="162" rx="16"/>
+    <circle cx="893" cy="132" r="15" fill="#3977c3"/><text class="num" x="893" y="137" text-anchor="middle">5</text>
+    <text class="label" x="953" y="171" text-anchor="middle">预训练</text>
+    <text class="small" x="953" y="202" text-anchor="middle">计算损失与梯度</text>
+    <text class="small" x="953" y="225" text-anchor="middle">更新模型参数</text>
+
+    <rect class="head" x="1074" y="105" width="170" height="162" rx="16"/>
+    <circle cx="1099" cy="132" r="15" fill="#245d9f"/><text class="num" x="1099" y="137" text-anchor="middle">6</text>
+    <text class="label" x="1159" y="171" text-anchor="middle">检查与复用</text>
+    <text class="small" x="1159" y="202" text-anchor="middle">留出集评估</text>
+    <text class="small" x="1159" y="225" text-anchor="middle">再做下游适配</text>
+  </g>
+  <path class="line" d="M215 186 H242"/><path class="line" d="M421 186 H448"/>
+  <path class="line" d="M627 186 H654"/><path class="line" d="M833 186 H860"/>
+  <path class="line" d="M1039 186 H1066"/>
+  <rect x="44" y="296" width="1200" height="48" rx="12" fill="#eaf3ff"/>
+  <text class="foot" x="644" y="326" text-anchor="middle">数据 × 训练目标 × 计算预算共同决定模型所学分布；训练目标不等于真实标签。</text>
+</svg>

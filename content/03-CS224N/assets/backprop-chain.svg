@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 380" role="img" aria-labelledby="title desc">
+  <title id="title">前向计算与反向传播梯度</title>
+  <desc id="desc">输入依次经过线性层、激活函数和交叉熵得到损失；反向传播沿相反方向用链式法则计算梯度。</desc>
+  <defs>
+    <marker id="fwd" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9" fill="#315f91"/></marker>
+    <marker id="bwd" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9" fill="#a67c2e"/></marker>
+    <style>text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}.box{fill:#fff;stroke:#9cb2c8;stroke-width:2}.label{font-size:21px;font-weight:600}.small{font-size:17px;fill:#53677d}</style>
+  </defs>
+  <rect width="1120" height="380" rx="22" fill="#f7faff"/>
+  <text x="560" y="43" text-anchor="middle" class="label">前向传播保存中间量，反向传播传回损失对参数的敏感度</text>
+  <g>
+    <rect class="box" x="55" y="116" width="130" height="68" rx="12"/><text x="120" y="158" class="label" text-anchor="middle">输入 x</text>
+    <rect class="box" x="260" y="116" width="170" height="68" rx="12"/><text x="345" y="158" class="label" text-anchor="middle">线性层 Wx+b</text>
+    <rect class="box" x="505" y="116" width="145" height="68" rx="12"/><text x="577" y="158" class="label" text-anchor="middle">激活 f</text>
+    <rect class="box" x="725" y="116" width="160" height="68" rx="12"/><text x="805" y="158" class="label" text-anchor="middle">logits / softmax</text>
+    <rect x="950" y="116" width="125" height="68" rx="12" fill="#e4eef8" stroke="#315f91" stroke-width="2"/><text x="1012" y="158" class="label" text-anchor="middle">loss L</text>
+    <path d="M185 150h67M430 150h67M650 150h67M885 150h59" stroke="#315f91" stroke-width="3" marker-end="url(#fwd)"/>
+  </g>
+  <text x="560" y="225" text-anchor="middle" class="small">前向：按函数顺序计算值与 loss</text>
+  <path d="M1012 252H120V296" fill="none" stroke="#a67c2e" stroke-width="3" marker-end="url(#bwd)"/>
+  <text x="560" y="285" text-anchor="middle" class="label" fill="#8a6825">反向：∂L/∂x = (∂L/∂f)(∂f/∂x)</text>
+  <text x="560" y="337" text-anchor="middle" class="small">每个节点把上游梯度乘以自己的局部导数，再传给更早的节点</text>
+</svg>

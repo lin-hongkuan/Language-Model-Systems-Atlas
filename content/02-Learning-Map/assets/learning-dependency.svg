@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 330" role="img" aria-labelledby="title desc">
+  <title id="title">从 Python 基础到语言模型系统的学习依赖图</title>
+  <desc id="desc">Python 和张量基础依次连接自动微分、词向量、序列模型、Transformer、分词、训练和评估，再扩展到现代大模型系统。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="#668db7"/></marker><style>text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#1d2b3a}.t{font-size:14px;font-weight:600}.s{font-size:11px;fill:#53677d}</style></defs>
+  <rect width="1240" height="330" rx="20" fill="#f7faff"/>
+  <text x="620" y="36" text-anchor="middle" class="t">依赖关系：先理解张量与梯度，再逐层走到模型系统</text>
+  <g>
+    <g transform="translate(35 97)"><rect width="130" height="86" rx="12" fill="#fff" stroke="#9cb2c8" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">Python</text><text x="65" y="60" text-anchor="middle" class="s">函数 · 数组</text></g>
+    <g transform="translate(205 97)"><rect width="130" height="86" rx="12" fill="#fff" stroke="#9cb2c8" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">Tensor</text><text x="65" y="60" text-anchor="middle" class="s">shape · 矩阵</text></g>
+    <g transform="translate(375 97)"><rect width="130" height="86" rx="12" fill="#fff" stroke="#9cb2c8" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">梯度</text><text x="65" y="60" text-anchor="middle" class="s">autograd · loss</text></g>
+    <g transform="translate(545 97)"><rect width="130" height="86" rx="12" fill="#fff" stroke="#9cb2c8" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">词向量</text><text x="65" y="60" text-anchor="middle" class="s">Word2Vec</text></g>
+    <g transform="translate(715 97)"><rect width="130" height="86" rx="12" fill="#fff" stroke="#9cb2c8" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">语言模型</text><text x="65" y="60" text-anchor="middle" class="s">RNN · next token</text></g>
+    <g transform="translate(885 97)"><rect width="130" height="86" rx="12" fill="#dceaf7" stroke="#668db7" stroke-width="2"/><text x="65" y="36" text-anchor="middle" class="t">Transformer</text><text x="65" y="60" text-anchor="middle" class="s">Attention · mask</text></g>
+    <g transform="translate(1055 97)"><rect width="150" height="86" rx="12" fill="#315f91" stroke="#315f91" stroke-width="2"/><text x="75" y="36" text-anchor="middle" class="t" fill="#fff">模型系统</text><text x="75" y="60" text-anchor="middle" class="s" fill="#eaf3fb">BPE · 训练 · 评估</text></g>
+  </g>
+  <g stroke="#668db7" stroke-width="2.4" marker-end="url(#arrow)">
+    <path d="M165 140h35"/><path d="M335 140h35"/><path d="M505 140h35"/><path d="M675 140h35"/><path d="M845 140h35"/><path d="M1015 140h35"/>
+  </g>
+  <path d="M620 222v36H275v-25M620 258h345v-25" fill="none" stroke="#a7b9ca" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="275" y="286" text-anchor="middle" class="s">基础回路：前向 → loss → backward → step</text>
+  <text x="965" y="286" text-anchor="middle" class="s">系统回路：数据 → 训练 → 验证 → 推理</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 430" role="img" aria-labelledby="title desc">
+  <title id="title">模型评估协议与指标边界</title>
+  <desc id="desc">先定义任务并建立数据划分，固定模型版本和提示协议，再运行预测、计算指标并分析错误；下方列出污染、类别不平衡和单一指标等限制。</desc>
+  <defs>
+    <marker id="arrow-l11" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.box{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .primary{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .warn{fill:#f0f6fd;stroke:#8eabc9;stroke-width:1.7}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l11)}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="430" rx="22"/>
+  <text class="title" x="54" y="54">评估：让比较有定义、可复现、可解释</text>
+
+  <rect class="box" x="48" y="105" width="205" height="102" rx="15"/>
+  <text class="label" x="150" y="143" text-anchor="middle">定义目标</text>
+  <text class="small" x="150" y="172" text-anchor="middle">能力 · 错误代价</text>
+  <rect class="box" x="295" y="105" width="205" height="102" rx="15"/>
+  <text class="label" x="397" y="143" text-anchor="middle">构造数据</text>
+  <text class="small" x="397" y="172" text-anchor="middle">覆盖 · 划分 · 去重</text>
+  <rect class="box" x="542" y="105" width="205" height="102" rx="15"/>
+  <text class="label" x="644" y="143" text-anchor="middle">固定协议</text>
+  <text class="small" x="644" y="172" text-anchor="middle">版本 · 提示 · 解码</text>
+  <rect class="primary" x="789" y="105" width="205" height="102" rx="15"/>
+  <text class="label" x="891" y="143" text-anchor="middle">计算指标</text>
+  <text class="small" x="891" y="172" text-anchor="middle">多指标 · 分项结果</text>
+  <rect class="box" x="1036" y="105" width="205" height="102" rx="15"/>
+  <text class="label" x="1138" y="143" text-anchor="middle">检查错误</text>
+  <text class="small" x="1138" y="172" text-anchor="middle">样例 · 复现 · 迭代</text>
+  <path class="line" d="M254 156 H287"/><path class="line" d="M501 156 H534"/>
+  <path class="line" d="M748 156 H781"/><path class="line" d="M995 156 H1028"/>
+
+  <text class="label" x="54" y="260">分数的盲点</text>
+  <rect class="warn" x="48" y="281" width="350" height="78" rx="14"/>
+  <text class="label" x="223" y="313" text-anchor="middle">数据污染 / 泄漏</text>
+  <text class="small" x="223" y="338" text-anchor="middle">记住答案会伪装成泛化</text>
+  <rect class="warn" x="465" y="281" width="350" height="78" rx="14"/>
+  <text class="label" x="640" y="313" text-anchor="middle">类别不平衡</text>
+  <text class="small" x="640" y="338" text-anchor="middle">Accuracy 可能掩盖漏检</text>
+  <rect class="warn" x="882" y="281" width="350" height="78" rx="14"/>
+  <text class="label" x="1057" y="313" text-anchor="middle">单一指标 / 评分偏差</text>
+  <text class="small" x="1057" y="338" text-anchor="middle">稳定分数不等于目标有效</text>
+  <text class="small" x="640" y="395" text-anchor="middle">指标只对指定任务、样本与协议提供证据，不是模型整体能力的完整刻度。</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500" role="img" aria-labelledby="title desc">
+  <title id="title">SFT、RLHF 与 DPO 后训练路线</title>
+  <desc id="desc">预训练模型通过示范问答进行监督微调，得到指令模型和参考策略。之后可以使用偏好数据训练奖励模型并做 RLHF，也可以把偏好对与参考策略直接用于 DPO。</desc>
+  <defs>
+    <marker id="arrow-l08" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.box{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .primary{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .panel{fill:#fff;stroke:#a8c6e9;stroke-width:2}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l08)}
+      .branch{stroke:#82a9d8;stroke-width:2.5;fill:none;marker-end:url(#arrow-l08)}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="500" rx="22"/>
+  <text class="title" x="54" y="52">后训练：共享起点，两种偏好优化路线</text>
+  <rect class="box" x="70" y="91" width="220" height="74" rx="15"/>
+  <text class="label" x="180" y="122" text-anchor="middle">预训练语言模型</text>
+  <text class="small" x="180" y="146" text-anchor="middle">擅长续写文本</text>
+  <rect class="box" x="390" y="91" width="230" height="74" rx="15"/>
+  <text class="label" x="505" y="122" text-anchor="middle">SFT 示范数据</text>
+  <text class="small" x="505" y="146" text-anchor="middle">请求 + 示例回答</text>
+  <rect class="primary" x="730" y="91" width="260" height="74" rx="15"/>
+  <text class="label" x="860" y="122" text-anchor="middle">指令模型 / 参考策略</text>
+  <text class="small" x="860" y="146" text-anchor="middle">后续优化的共同起点</text>
+  <path class="line" d="M292 128 H382"/><path class="line" d="M622 128 H722"/>
+  <path class="branch" d="M860 166 V202 H320 V230"/>
+  <path class="branch" d="M860 166 V202 H960 V230"/>
+
+  <rect class="panel" x="48" y="229" width="565" height="224" rx="18"/>
+  <text class="label" x="72" y="263">路线 A · RLHF / PPO</text>
+  <rect class="box" x="72" y="291" width="145" height="78" rx="12"/>
+  <text class="label" x="144" y="322" text-anchor="middle">偏好比较</text>
+  <text class="small" x="144" y="346" text-anchor="middle">哪个回答更好？</text>
+  <rect class="box" x="257" y="291" width="145" height="78" rx="12"/>
+  <text class="label" x="329" y="322" text-anchor="middle">奖励模型</text>
+  <text class="small" x="329" y="346" text-anchor="middle">给回答打分</text>
+  <rect class="primary" x="442" y="291" width="145" height="78" rx="12"/>
+  <text class="label" x="514" y="322" text-anchor="middle">策略优化</text>
+  <text class="small" x="514" y="346" text-anchor="middle">奖励 + KL 约束</text>
+  <path class="line" d="M218 330 H249"/><path class="line" d="M403 330 H434"/>
+  <text class="small" x="330" y="416" text-anchor="middle">显式学习奖励，再用奖励更新策略</text>
+
+  <rect class="panel" x="667" y="229" width="565" height="224" rx="18"/>
+  <text class="label" x="691" y="263">路线 B · DPO</text>
+  <rect class="box" x="691" y="291" width="175" height="78" rx="12"/>
+  <text class="label" x="778" y="322" text-anchor="middle">偏好回答对</text>
+  <text class="small" x="778" y="346" text-anchor="middle">优选 / 次选</text>
+  <rect class="box" x="891" y="291" width="145" height="78" rx="12"/>
+  <text class="label" x="963" y="322" text-anchor="middle">参考策略</text>
+  <text class="small" x="963" y="346" text-anchor="middle">冻结的 SFT 模型</text>
+  <rect class="primary" x="1060" y="291" width="145" height="78" rx="12"/>
+  <text class="label" x="1132" y="322" text-anchor="middle">DPO 更新</text>
+  <text class="small" x="1132" y="346" text-anchor="middle">相对概率目标</text>
+  <path class="line" d="M867 330 H1052"/><path class="branch" d="M1037 370 V390 H1132 V377"/>
+  <text class="small" x="949" y="416" text-anchor="middle">无需单独训练显式奖励模型，仍依赖偏好数据</text>
+</svg>

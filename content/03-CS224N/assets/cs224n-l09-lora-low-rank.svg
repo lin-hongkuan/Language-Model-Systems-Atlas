@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 430" role="img" aria-labelledby="title desc">
+  <title id="title">LoRA 将权重更新分成低秩支路</title>
+  <desc id="desc">输入 X 分成冻结的基础权重 W 转置路径和可训练的 A 转置、B 转置低秩路径，两路结果相加得到输出。</desc>
+  <defs>
+    <marker id="arrow-l09" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3977c3"/>
+    </marker>
+    <style>
+      .bg{fill:#f7fbff}.box{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .frozen{fill:#eef4fb;stroke:#819bb8;stroke-width:2}
+      .train{fill:#e8f2ff;stroke:#3977c3;stroke-width:2}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 19px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .line{stroke:#3977c3;stroke-width:3;fill:none;marker-end:url(#arrow-l09)}
+      .base{stroke:#819bb8;stroke-width:3;fill:none;marker-end:url(#arrow-l09)}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="430" rx="22"/>
+  <text class="title" x="54" y="54">LoRA：冻结主干，在旁路学习低秩更新</text>
+  <rect class="box" x="48" y="177" width="150" height="82" rx="15"/>
+  <text class="label" x="123" y="210" text-anchor="middle">输入 X</text>
+  <text class="small" x="123" y="236" text-anchor="middle">[B, dᵢₙ]</text>
+
+  <rect class="frozen" x="310" y="91" width="220" height="82" rx="15"/>
+  <text class="label" x="420" y="124" text-anchor="middle">冻结的 Wᵀ</text>
+  <text class="small" x="420" y="149" text-anchor="middle">基础线性变换</text>
+  <rect class="train" x="310" y="276" width="170" height="82" rx="15"/>
+  <text class="label" x="395" y="309" text-anchor="middle">训练 Aᵀ</text>
+  <text class="small" x="395" y="334" text-anchor="middle">dᵢₙ → r</text>
+  <rect class="train" x="555" y="276" width="170" height="82" rx="15"/>
+  <text class="label" x="640" y="309" text-anchor="middle">低秩空间</text>
+  <text class="small" x="640" y="334" text-anchor="middle">r ≪ dᵢₙ,dₒᵤₜ</text>
+  <rect class="train" x="800" y="276" width="170" height="82" rx="15"/>
+  <text class="label" x="885" y="309" text-anchor="middle">训练 Bᵀ</text>
+  <text class="small" x="885" y="334" text-anchor="middle">r → dₒᵤₜ</text>
+
+  <rect class="frozen" x="660" y="91" width="190" height="82" rx="15"/>
+  <text class="label" x="755" y="124" text-anchor="middle">基础输出</text>
+  <text class="small" x="755" y="149" text-anchor="middle">XWᵀ</text>
+  <rect class="train" x="1010" y="276" width="150" height="82" rx="15"/>
+  <text class="label" x="1085" y="309" text-anchor="middle">更新支路</text>
+  <text class="small" x="1085" y="334" text-anchor="middle">XAᵀBᵀ</text>
+  <circle cx="1085" cy="132" r="29" fill="#fff" stroke="#3977c3" stroke-width="3"/>
+  <text class="label" x="1085" y="140" text-anchor="middle">＋</text>
+  <rect class="box" x="1140" y="91" width="110" height="82" rx="15"/>
+  <text class="label" x="1195" y="124" text-anchor="middle">输出 Y</text>
+  <text class="small" x="1195" y="149" text-anchor="middle">两路相加</text>
+
+  <path class="base" d="M198 193 C245 193 255 132 302 132"/>
+  <path class="line" d="M198 242 C245 242 255 317 302 317"/>
+  <path class="line" d="M481 317 H547"/><path class="line" d="M726 317 H792"/>
+  <path class="line" d="M971 317 H1002"/>
+  <path class="base" d="M530 132 H652"/>
+  <path class="base" d="M850 132 H1047"/>
+  <path class="line" d="M1085 276 V170"/>
+  <path class="line" d="M1114 132 H1132"/>
+  <text class="small" x="640" y="397" text-anchor="middle">W 保持冻结；只训练 A 与 B。更新参数量由 dₒᵤₜ × dᵢₙ 降为 r(dᵢₙ + dₒᵤₜ)。</text>
+</svg>

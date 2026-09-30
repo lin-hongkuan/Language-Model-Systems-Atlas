@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+  <title id="title">Token fertility 与固定上下文预算</title>
+  <desc id="desc">同一类文本在不同 tokenizer 下可能被切成不同数量的 token。Token fertility 较高时，同样的 token 窗口容纳的原文会减少。图中语种 A 和 B 仅为示意，不是特定语言或 tokenizer 的实测数据。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7fbff}.card{fill:#fff;stroke:#bed4ef;stroke-width:2}
+      .token{fill:#e8f2ff;stroke:#3977c3;stroke-width:1.7}
+      .token2{fill:#f1f6fc;stroke:#7c9ec4;stroke-width:1.7}
+      .title{font:700 25px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#163b66}
+      .label{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#173e6a}
+      .small{font:15px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+      .tiny{font:14px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#52677f}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="400" rx="22"/>
+  <text class="title" x="54" y="54">Token fertility：相同预算，原文容量可能不同</text>
+
+  <rect class="card" x="48" y="86" width="815" height="238" rx="17"/>
+  <text class="label" x="76" y="121">相同含义的短语 · 两种切分示意</text>
+  <text class="small" x="78" y="176">Tokenizer A · 4 tokens</text>
+  <rect class="token" x="300" y="146" width="120" height="48" rx="9"/>
+  <rect class="token" x="431" y="146" width="120" height="48" rx="9"/>
+  <rect class="token" x="562" y="146" width="120" height="48" rx="9"/>
+  <rect class="token" x="693" y="146" width="120" height="48" rx="9"/>
+  <text class="tiny" x="360" y="176" text-anchor="middle">片段 1</text>
+  <text class="tiny" x="491" y="176" text-anchor="middle">片段 2</text>
+  <text class="tiny" x="622" y="176" text-anchor="middle">片段 3</text>
+  <text class="tiny" x="753" y="176" text-anchor="middle">片段 4</text>
+  <text class="small" x="78" y="256">Tokenizer B · 7 tokens</text>
+  <rect class="token2" x="300" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="374" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="448" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="522" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="596" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="670" y="226" width="65" height="48" rx="8"/>
+  <rect class="token2" x="744" y="226" width="65" height="48" rx="8"/>
+  <text class="tiny" x="332" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="406" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="480" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="554" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="628" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="702" y="256" text-anchor="middle">片段</text>
+  <text class="tiny" x="776" y="256" text-anchor="middle">片段</text>
+
+  <rect class="card" x="895" y="86" width="340" height="238" rx="17"/>
+  <text class="label" x="1065" y="126" text-anchor="middle">固定 token 窗口</text>
+  <rect x="947" y="153" width="236" height="48" rx="12" fill="#e8f2ff"/>
+  <text class="label" x="1065" y="184" text-anchor="middle">相同 token 预算</text>
+  <path d="M1065 209 V235" stroke="#3977c3" stroke-width="3"/>
+  <path d="M1065 235 L1056 223 M1065 235 L1074 223" stroke="#3977c3" stroke-width="3" fill="none"/>
+  <text class="small" x="1065" y="263" text-anchor="middle">fertility 较高时</text>
+  <text class="small" x="1065" y="288" text-anchor="middle">可容纳的原文更少</text>
+  <text class="tiny" x="640" y="366" text-anchor="middle">为说明切分粒度影响的示意图；数量不代表任何特定语言或 tokenizer 的实测值。</text>
+</svg>
